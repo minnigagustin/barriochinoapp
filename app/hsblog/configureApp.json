@@ -1,0 +1,10 @@
+{
+    "settings": {
+        "storeReviewTimeout": 300000,
+        "storeReviewEnable": true,
+        "youtubeKey": "AIzaSyDxJaU8bLdx7sSJ8fcRdhYS1pLk8Jdvnx0",
+        "colorPrimary": "#ff3e3c",
+        "bottomTabBarTopBorder": true,
+        "applicationUpdateMessage": "Our application has released new version including bug fixes and functional updates. We recommend that you upgrade to have the best experience."
+    }
+}

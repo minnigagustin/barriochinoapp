@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="17b134c7-1b3e-4c81-bcbd-fa04ebd1a030" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/dumbs/Banner/Banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/dumbs/Banner/Banner.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/dumbs/ListingCarousel/ListingCarousel.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/dumbs/ListingCarousel/ListingCarousel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/dumbs/ListingLayoutHorizontal.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/dumbs/ListingLayoutHorizontal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/dumbs/ListingLayoutPopular.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/dumbs/ListingLayoutPopular.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/components/dumbs/ProductWC/ProductCarousel.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/dumbs/ProductWC/ProductCarousel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/wiloke-elements/components/atoms/Button.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/wiloke-elements/components/atoms/Button.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/wiloke-elements/components/atoms/Loader.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/wiloke-elements/components/atoms/Loader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configureApp.json" beforeDir="false" afterPath="$PROJECT_DIR$/configureApp.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configureStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/configureStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/yarn-error.log" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/wilcityapp.iml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/codeStyles/Project.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1dn8i6rcgLQ7oQyKjowTlIUJrOv" />
+  <component name="PropertiesComponent">
+    <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
+    <property name="editor.config.ad.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17b134c7-1b3e-4c81-bcbd-fa04ebd1a030" name="Default Changelist" comment="" />
+      <created>1582341009580</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582341009580</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

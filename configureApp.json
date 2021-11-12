@@ -1,0 +1,19 @@
+{
+    "api": {
+        "baseUrl": "https://enelbarriochino.com/",
+        "timeout": 100000
+    },
+    "colorPrimary": "#E60000",
+    "appleColor": "white",
+    "loginScreenStartApp": {
+        "enable": false,
+        "skipButtonText": "Omitir",
+        "title": "Barrio Chino",
+        "text": "Buena fortuna, alegria y bienestar"
+    },
+    "googleLogin": {
+        "usesGoogleSignIn": true,
+        "iosStandaloneAppClientId": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com",
+        "androidStandaloneAppClientId": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com"
+    }
+}

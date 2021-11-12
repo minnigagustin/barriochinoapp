@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "844913067594",
+    "firebase_url": "https://barrio-chino-315701-default-rtdb.firebaseio.com",
+    "project_id": "barrio-chino-315701",
+    "storage_bucket": "barrio-chino-315701.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844913067594:android:94cf02aa912c4524a708b3",
+        "android_client_info": {
+          "package_name": "com.barriochino.paya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844913067594-bp4vsi9b6f3gspcl1nr5jcafhlt1a1pd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.barriochino.paya",
+            "certificate_hash": "617b8ad7fb0c57278c8ee1fb2c680f5b46943c37"
+          }
+        },
+        {
+          "client_id": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY0fzpKW0XcYk1ZzNspRuMXH01T330mW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

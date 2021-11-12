@@ -1,2 +1,2 @@
-# WilcityApp
-# React native application for wilcity wp theme
+# APP Barrio Chino
+# React native - PaYa

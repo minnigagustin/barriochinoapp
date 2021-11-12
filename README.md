@@ -1,2 +1,2 @@
 # APP Barrio Chino
-# React native - PaYa
+# React native - PaYa Nuevo

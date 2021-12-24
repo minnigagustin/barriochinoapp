@@ -9,7 +9,6 @@ import {
   StyleSheet,
   ViewPropTypes,
 } from "react-native";
-import { Feather, AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
 import _ from "lodash";
 import * as Consts from "../../constants/styleConstants";
 import stylesBase from "../../stylesBase";
@@ -102,8 +101,8 @@ export default class ListingItem extends PureComponent {
     const { layout, image, featureImageWidth } = this.props;
 
     return (
-      <ImageCover
-        src={!!image ? encodeURI(image) : DEFAULT_IMAGE}
+      <Image2
+        uri={!!image ? encodeURI(image) : DEFAULT_IMAGE}
         // preview={image}
         width={
           !!featureImageWidth
@@ -112,12 +111,11 @@ export default class ListingItem extends PureComponent {
             ? ITEM_WIDTH_HORIZONTAL
             : ITEM_WIDTH_VERTICAL
         }
-        modifier="16by9"
-        borderRadius={10}
-        overlay={0.55}
-        blurRadius={0.5}
-
-       
+        percentRatio="56.25%"
+        containerStyle={{
+          borderTopLeftRadius: Consts.round,
+          borderTopRightRadius: Consts.round,
+        }}
       />
     );
   }
@@ -145,10 +143,20 @@ export default class ListingItem extends PureComponent {
     return (
       <View style={styles.footer}>
         {this.renderRated()}
-        <View style={{left: 5}}>
-        <Entypo name="star" size={15} color="#FFDC00" />
-        </View>
-        
+        <Text
+          style={{
+            fontSize: 11,
+            color:
+              !businessStatus ||
+              businessStatus === "day_off" ||
+              businessStatus === "close" ||
+              businessStatus === "business_closures"
+                ? Consts.colorQuaternary
+                : Consts.colorSecondary,
+          }}
+        >
+          {this._renderBusinessText(businessStatus)}
+        </Text>
       </View>
     );
   };
@@ -162,33 +170,13 @@ export default class ListingItem extends PureComponent {
         ]}
       >
         
-        <FontAwesome name="check" size={18} color="black" />
+        <Image
+             source={require("../../../assets/verificado.png")}
+            style={styles.claimText}
+            
+          />
         
       </View>
-    );
-  };
-
-  renderAbierto = () => {
-    const {
-      businessStatus
-    } = this.props;
-    return (
-      <View style={styles.abierto}>
-          <Text
-          style={{
-            fontSize: 11,
-            color:
-              !businessStatus ||
-              businessStatus === "day_off" ||
-              businessStatus === "close" ||
-              businessStatus === "business_closures"
-                ? Consts.colorQuaternary
-                : '#FFDC00',
-          }}
-        >
-          {this._renderBusinessText(businessStatus)}
-        </Text>
-        </View>
     );
   };
 
@@ -211,7 +199,6 @@ export default class ListingItem extends PureComponent {
       <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
         <View style={{ position: "relative" }}>
           <View style={styles.wrap}>
-          {this.renderAbierto()}
             {this.renderImage()}
             {!!mapDistance && (
               <View
@@ -224,7 +211,7 @@ export default class ListingItem extends PureComponent {
               >
                 <Text style={styles.mapDistanceText}>{mapDistance}</Text>
               </View>
-              )}
+            )}
             <View style={styles.logoWrap}>
               <ImageCover
                 src={logo}
@@ -232,22 +219,34 @@ export default class ListingItem extends PureComponent {
                 styles={styles.logo}
                 borderRadius={15}
               />
-              
+              <Image
+                source={require("../../../assets/wave.png")}
+                style={styles.wave}
+              />
             </View>
           </View>
           {claimStatus && this.renderVerified()}
 
-          <View style={styles.footer}>
+          <View style={[stylesBase.pd10, styles.pd]}>
             <Heading
               title={title}
-              titleSize={10}
-              textSize={9}
-              titleColor="#FFFFFF"
-              titleNumberOfLines={2}
+              text={tagline}
+              titleSize={12}
+              textSize={11}
+              titleNumberOfLines={1}
               textNumberOfLines={1}
             />
+            {!!location && (
+              <View style={styles.textWrap}>
+                <IconTextSmall
+                  text={location}
+                  iconName="map-pin"
+                  numberOfLines={1}
+                  iconColor={colorPrimary}
+                />
+              </View>
+            )}
             {this.renderFooter()}
-            
           </View>
         </View>
       </TouchableOpacity>
@@ -284,7 +283,7 @@ const styles = StyleSheet.create({
   logoWrap: {
     position: "relative",
     zIndex: 9,
-    marginTop: -55.5,
+    marginTop: -15.5,
     marginLeft: 0,
     marginBottom: -5,
     width: 66,
@@ -300,18 +299,18 @@ const styles = StyleSheet.create({
   logo: {
     marginLeft: 18,
     marginTop: 2,
-    marginBottom: 5
   },
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    position: "relative",
-    zIndex: 9,
-    marginTop: 2,
-    marginLeft: 5,
-    marginRight: 5
-    
+    // borderTopWidth: 1,
+    // borderTopColor: Consts.colorGray2,
+    marginTop: 8,
+    marginBottom: -2,
+    marginHorizontal: -10,
+    paddingTop: 5,
+    paddingHorizontal: 10,
   },
   textWrap: { marginRight: 10, marginTop: 2 },
   pd: { paddingTop: 10, paddingBottom: 10 },
@@ -321,8 +320,8 @@ const styles = StyleSheet.create({
   mapDistance: {
     position: "absolute",
     zIndex: 9,
-    top: 10,
-    marginLeft: 75,
+    top: 6,
+    left: 6,
     paddingVertical: 2,
     paddingHorizontal: 5,
     borderRadius: Consts.round,
@@ -334,21 +333,7 @@ const styles = StyleSheet.create({
   claim: {
     position: "absolute",
     top: 10,
-    backgroundColor: '#FFDC00',
     right: 5,
-    padding: 4,
-    borderRadius: 50,
-
-    zIndex: 9999,
-  },
-  abierto: {
-    position: "absolute",
-    top: 10,
-    backgroundColor: 'black',
-    left: 5,
-    padding: 4,
-    borderRadius: 50,
-
     zIndex: 9999,
   },
   claimText: {

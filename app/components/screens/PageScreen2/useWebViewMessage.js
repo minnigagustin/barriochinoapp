@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as WebBrowser from "expo-web-browser";
 import { useSelector } from "react-redux";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const useWebViewMessage = (navigation) => {
   const [title, setTitle] = useState("");

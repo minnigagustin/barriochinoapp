@@ -567,13 +567,12 @@ const styles = StyleSheet.create({
   },
   openMapView: {
     position: "absolute",
-    bottom: 4 + bottomBarHeight,
+    bottom: -14 + bottomBarHeight, //bottom era 4
     zIndex: 15,
-    right: 10,
     width: 65,
     height: 65,
     borderRadius: 50,
-    backgroundColor: "#E60000",
+    backgroundColor: "black",
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",
@@ -587,7 +586,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: 70,
     top:-13,
-    backgroundColor: "#E60000",
+    backgroundColor: "black",
 
     justifyContent: "center",
     alignItems: "center"

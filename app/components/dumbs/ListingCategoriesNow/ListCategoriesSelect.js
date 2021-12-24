@@ -12,6 +12,8 @@ import { Image2 } from "../../../wiloke-elements";
 import _ from "lodash";
 import { colorPrimary } from "../../../constants/styleConstants";
 import CategorySelectItem from "./CategorySelectItem";
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import he from "he";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image2);
 
@@ -29,20 +31,44 @@ export default class ListCategoriesSelect extends PureComponent {
     };
   }
 
-  _handleSelect = (item) => async () => {
-    const { selected } = this.state;
-    const { onSelect } = this.props;
-    const itemSelected = selected.filter(
-      (i) => i.oTerm.term_id === item.oTerm.term_id
-    );
-    if (!_.isEmpty(itemSelected)) {
-      return;
-    }
-    const addItem = [item];
-    await this.setState({
-      selected: addItem,
+  _handleSelectss = (item) => async () => {
+    const { navigation } = this.props;
+    navigation.navigate("PageScreen2", {
+                  uri: item.oTerm.description });
+    console.log(item.oTerm.name);
+
+  };
+  _handleSelectsss = (item) => () => {
+    const { navigation } = this.props;
+    navigation.navigate("ListingCategories", {
+      categoryId: item.oTerm.term_id,
+      name: he.decode(item.oTerm.name),
+      taxonomy: item.taxonomy ? item.taxonomy : "listing_cat",
+      endpointAPI: item.restAPI,
     });
-    onSelect && onSelect(addItem[0]);
+  };
+
+  _handleSelect = (item) => () => {
+    const { navigation } = this.props;
+    if(item.oCount.number === 1){
+    navigation.navigate('ListingDetailScreen', {
+      id: item.oTerm.slug,
+      name: he.decode(item.oTerm.name),
+      link: item.oTerm.description,
+      image: item.oIcon.url,
+      logo: item.oIcon.url
+    });
+
+  } else {
+    const { subcategories } = this.props;
+    navigation.navigate("ListingCategories", {
+      categoryId: item.oTerm.term_id,
+      name: he.decode(item.oTerm.name),
+      taxonomy: "listing_cat",
+      subcategories: subcategories,
+      endpointAPI: item.restAPI,
+    });
+  }
   };
 
   _renderItem = ({ item, index }) => {
@@ -62,15 +88,18 @@ export default class ListCategoriesSelect extends PureComponent {
     const { categories } = this.props;
     return (
       <View style={{ paddingHorizontal: 10 }}>
-        <FlatList
-          data={categories}
-          renderItem={this._renderItem}
+    
+        <SwiperFlatList
+      autoplay
+      autoplayDelay={2}
+      autoplayLoop
+      autoplayLoopKeepAnimation
+      data={categories}
+      renderItem={this._renderItem}
           keyExtractor={(i, index) =>
             i.oTerm.term_id.toString() + `__categories__`
           }
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-        />
+    />
       </View>
     );
   }

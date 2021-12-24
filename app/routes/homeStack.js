@@ -4,6 +4,8 @@ import stackOpts from "./stackOpts";
 import HomeScreen from "../components/screens/HomeScreen";
 import ListingScreen from "../components/screens/ListingScreen";
 import EventScreen from "../components/screens/EventScreen";
+import HomeNueva from "../components/screens/HomeNueva";
+import PageScreen2 from "../components/screens/PageScreen2";
 import ListingCategories from "../components/screens/ListingCategories";
 const { width } = Dimensions.get("window");
 const homeStack = createStackNavigator(
@@ -20,9 +22,16 @@ const homeStack = createStackNavigator(
         }
       })
     },
+    HomeNueva: {
+      screen: HomeNueva
+    },
     ListingScreenStack: {
       screen: ListingScreen
     },
+
+PageScreen2: {
+          screen: PageScreen2,
+        },
     EventScreenStack: {
       screen: EventScreen
     }

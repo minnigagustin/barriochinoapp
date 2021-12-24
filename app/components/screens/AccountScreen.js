@@ -30,7 +30,7 @@ import {
 import { LoginFormContainer } from "../smarts";
 import _ from "lodash";
 import webPages from "../../constants/webPages";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 

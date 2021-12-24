@@ -17,6 +17,7 @@ import {
   getBusinessStatus,
 } from '../../wiloke-elements';
 import { screenWidth } from '../../constants/styleConstants';
+import ListCatNow from "../dumbs/ListingCategoriesNow/ListCatNow";
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -149,6 +150,15 @@ class ListingByCatContainer extends Component {
   renderContentSuccess(listingByCat) {
     const { startLoadMore } = this.state;
     return (
+    <View>
+    {this.props.subcategories ? <ListCatNow
+          cat={this.props.subcategories}
+          containerStyle={{
+            paddingVertical: 0,
+          }}
+          navigation={this.props.navigation}
+        /> : null
+    }
       <FlatList
         data={listingByCat.oResults}
         renderItem={this.renderItem}
@@ -191,6 +201,7 @@ class ListingByCatContainer extends Component {
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
       />
+      </View>
     );
   }
 

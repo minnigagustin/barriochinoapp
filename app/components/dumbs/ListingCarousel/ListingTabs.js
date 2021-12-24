@@ -196,30 +196,16 @@ class ListingTabs extends PureComponent {
   };
 
   render() {
-    const { tabs, settings, initialIndex, categories } = this.props;
+    const { tabs, settings, initialIndex, categories, subcategories, navigation } = this.props;
     return (
       <View>
         <ListCategoriesSelect
           categories={categories}
           onSelect={this._handleSelectCat}
+          subcategories={subcategories}
+          navigation={navigation}
         />
-        <View>
-          <WilTab
-            data={tabs}
-            swipeEnabled={false}
-            lazy={true}
-            colorPrimary={settings.colorPrimary}
-            tabBarStyles={{ width: Consts.screenWidth / tabs.length }}
-            renderItem={this._renderTabItem}
-            indexActive={initialIndex}
-            renderLazyPlaceholder={() => {
-              return (
-                <ViewWithLoading isLoading={true} contentLoader="content" />
-              );
-            }}
-            onTabPress={this._handlePress}
-          />
-        </View>
+     
       </View>
     );
   }

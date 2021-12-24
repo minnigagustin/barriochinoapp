@@ -26,7 +26,7 @@ import { Feather } from "@expo/vector-icons";
 import _ from "lodash";
 import he from "he";
 import { screenWidth } from "../../constants/styleConstants";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const ICON_WIDTH = 30;

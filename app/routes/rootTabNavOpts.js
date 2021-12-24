@@ -14,7 +14,7 @@ const RootTabNavOpts = (colorPrimary) => ({
     activeTintColor: "#FFD200",
     inactiveTintColor: "#fff",
     style: {
-      backgroundColor: "#E60000",
+      backgroundColor: "#000000",
       borderTopWidth: 0,
       borderTopColor: "#fff",
     },

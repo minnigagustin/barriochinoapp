@@ -7,7 +7,8 @@ import hsblogReducers from "./app/hsblog/store/rootReducers";
 import rootSaga from "./app/hsblog/store/rootSagas";
 // import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { syncTranslationWithStore, i18nReducer } from "react-redux-i18n";
 import { translations } from "./app/hsblog/translations";
 import { locale } from "./app/hsblog/utils/functions/getCurrentLocale";

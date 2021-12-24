@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Barrio Chino",
+    "name": "PaYa",
     "description": "Buena fortuna, alegria y bienestar",
-    "slug": "barriochino",
+    "slug": "pidepaya",
     "privacy": "public",
     "scheme": "wilcity",
     "platforms": [
@@ -39,7 +39,7 @@
         "NSCameraUsageDescription": "This app requires to access your photo library to show image on profile",
         "NSPhotoLibraryUsageDescription": "This app requires to access your photo library to show image on profile"
       },
-      "bundleIdentifier": "com.barriochino.paya",
+      "bundleIdentifier": "com.paya",
       "usesAppleSignIn": true,
       "config": {
         "googleSignIn": {
@@ -49,7 +49,7 @@
     },
     "android": {
       "googleServicesFile": "./google-services.json",
-      "package": "com.barriochino.paya",
+      "package": "com.paya",
       "versionCode": 26,
       "config": {
         "googleMaps": {

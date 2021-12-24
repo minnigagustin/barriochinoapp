@@ -3,7 +3,7 @@
         "baseUrl": "https://enelbarriochino.com/",
         "timeout": 100000
     },
-    "colorPrimary": "#E60000",
+    "colorPrimary": "#000000",
     "appleColor": "white",
     "loginScreenStartApp": {
         "enable": false,

@@ -66,7 +66,17 @@ export default class CategorySelectItem extends PureComponent {
     return (
       <TouchableOpacity activeOpacity={1} style={styles.btn} onPress={onPress}>
         <View style={styles.image}>{this._renderImage()}</View>
-       
+        <Animated.Text
+          style={[
+            styles.name,
+            {
+              transform: [{ scale }],
+              color: isSelected ? colorPrimary : "#222",
+            },
+          ]}
+        >
+          {he.decode(item.oTerm.name)}
+        </Animated.Text>
       </TouchableOpacity>
     );
   }
@@ -74,8 +84,8 @@ export default class CategorySelectItem extends PureComponent {
 
 const styles = StyleSheet.create({
   btn: {
-    paddingHorizontal: 8,
-    paddingBottom: 3,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -84,16 +94,9 @@ const styles = StyleSheet.create({
     color: "#222",
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 50,
+    height: 50,
     borderRadius: 100,
-    borderWidth: 3,
-    borderColor: '#FFDC00',
-    padding: 1,
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 1,
-    shadowRadius: 6,
-    elevation: 6,
+    padding: 5,
   },
 });

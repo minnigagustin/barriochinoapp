@@ -55,7 +55,7 @@ export default class Layout extends Component {
           <Header
             navigation={navigation}
             {...this.props}
-            backgroundColor={'white'}
+            backgroundColor={colorPrimary}
           />
         );
     }

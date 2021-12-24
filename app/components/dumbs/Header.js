@@ -6,11 +6,12 @@ import {
   TouchableOpacity,
   Dimensions,
   StyleSheet,
+  Image,
   Platform,
   ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import * as Consts from "../../constants/styleConstants";
 import stylesBase from "../../stylesBase";
@@ -58,6 +59,13 @@ class Header extends Component {
     });
   };
 
+  _handleHeaderProfilePress = (_) => {
+    const { navigation, translations } = this.props;
+    navigation.navigate("ProfileScreen", {
+      name: 'Perfil',
+    });
+  };
+
   _handleHeaderLeftPress = () => {
     const { navigation, translations, shortProfile } = this.props;
     !_.isEmpty(shortProfile) &&
@@ -87,33 +95,13 @@ class Header extends Component {
             },
           ]}
         >
-          {isLoggedIn && (
-            <View style={styles.headerIcon}>
-              {this.props.renderLeft ? (
-                this.props.renderLeft()
-              ) : notifyNewCount !== null ? (
-                <TouchableOpacity
-                  activeOpacity={0.6}
-                  onPress={this._handleHeaderRightPress}
-                  style={styles.headerIcon}
-                >
-                  <Feather name="bell" size={20} color="#fff" />
-
-                  {notifyNewCount !== null && notifyNewCount > 0 && (
-                    <View style={styles.count}>
-                      <Text style={{ color: "#fff", fontSize: 10 }}>
-                        {notifyNewCount > 50 ? 50 : notifyNewCount}
-                      </Text>
-                    </View>
-                  )}
-                </TouchableOpacity>
-              ) : (
-                <View style={styles.headerIcon}>
-                  <ActivityIndicator color="#fff" size="small" />
-                </View>
-              )}
-            </View>
-          )}
+        <View style={{ left: 5}}>
+      <Image
+            style={{ height:36,width: 71 }}
+            source={require("../screens/Logo.png")}
+         resizeMode="cover"  />
+      </View>
+        
 
           <TouchableOpacity
             activeOpacity={0.4}
@@ -128,7 +116,7 @@ class Header extends Component {
               style={[
                 styles.formItem,
                 {
-                  width: SCREEN_WIDTH - (isLoggedIn ? 50 : 20),
+                  width: SCREEN_WIDTH - (isLoggedIn ? 200 : 110),
                 },
               ]}
             >
@@ -143,6 +131,69 @@ class Header extends Component {
               </Text>
             </View>
           </TouchableOpacity>
+
+
+          {isLoggedIn && (
+            <View style={styles.headerIcon}>
+              {this.props.renderLeft ? (
+                this.props.renderLeft()
+              ) : notifyNewCount !== null ? (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  onPress={this._handleHeaderRightPress}
+                  style={styles.headerIcon}
+
+                >
+                  <Feather name="bell" size={20} color="#000000" />
+
+                  {notifyNewCount !== null && notifyNewCount > 0 && (
+                    <View style={styles.count}>
+                      <Text style={{ color: "#000000", fontSize: 10 }}>
+                        {notifyNewCount > 50 ? 50 : notifyNewCount}
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.headerIcon}>
+                  <ActivityIndicator color="#fff" size="small" />
+                </View>
+              )}
+
+
+            </View> 
+          )}
+
+          {isLoggedIn && (
+            <View style={styles.headerIcon}>
+              {this.props.renderLeft ? (
+                this.props.renderLeft()
+              ) : notifyNewCount !== null ? (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  onPress={this._handleHeaderProfilePress}
+                  style={styles.headerIcon}
+
+                >
+                  <AntDesign name="user" size={20} color="#000000" />
+
+                  {notifyNewCount !== null && notifyNewCount > 0 && (
+                    <View style={styles.count}>
+                      <Text style={{ color: "#000000", fontSize: 10 }}>
+                        {notifyNewCount > 50 ? 50 : notifyNewCount}
+                      </Text>
+                    </View>
+                  )}
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.headerIcon}>
+                  <ActivityIndicator color="#fff" size="small" />
+                </View>
+              )}
+
+                
+            </View> 
+          )}
           {/* {console.log(123, messageNewCount)} */}
           
         </View>

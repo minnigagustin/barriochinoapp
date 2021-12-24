@@ -22,7 +22,7 @@ const ListingCategories = (props) => {
           <Feather name="search" size={20} color="#fff" />
         </TouchableOpacity>
       )}
-      renderContent={() => <ListingByCatContainer navigation={navigation} />}
+      renderContent={() => <ListingByCatContainer navigation={navigation} subcategories={navigation.state.params.subcategories} />}
       scrollViewEnabled={false}
       scrollViewStyle={{
         backgroundColor: Consts.colorGray2,

@@ -78,7 +78,6 @@ class HomeScreen extends Component {
       appState: AppState.currentState,
       notification: null,
       animationType: "none",
-      subcategories: null,
     };
   }
 
@@ -335,7 +334,6 @@ class HomeScreen extends Component {
     const { navigation } = this.props;
     const { style } = catSettings;
     const { bg_color } = catSettings;
-    this.setState({subcategories : data})
     const backgroundColor = !!bg_color ? bg_color : "#fff";
     return (
       <View
@@ -344,7 +342,7 @@ class HomeScreen extends Component {
         <ListCatNow
           cat={data}
           containerStyle={{
-            paddingVertical: 0,
+            paddingVertical: 10,
           }}
           navigation={navigation}
         />
@@ -640,17 +638,20 @@ class HomeScreen extends Component {
       <View
         style={{
           backgroundColor,
-          paddingTop: 13
-
+          paddingVertical: 10,
         }}
       >
-        
+        <Heading
+          title={setting.heading}
+          titleColor={setting.heading_color}
+          style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+          text={setting.description ? setting.description : ""}
+        />
         <ListingTabs
           initialIndex={0}
           tabs={tabs}
           categories={listing}
           navigation={navigation}
-          subcategories={this.state.subcategories}
           postType={setting.post_type}
         />
       </View>

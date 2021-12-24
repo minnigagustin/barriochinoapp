@@ -425,7 +425,7 @@ class LoginFormContainer extends Component {
               radius="round"
               isLoading={false}
               onAction={this._handleLoginWithGoogle}
-              textButton={translations.loginWithGoogle}
+              textButton="Ingrese con Google"
               containerStyle={{
                 borderWidth: 1,
                 borderColor: "#4285F4",

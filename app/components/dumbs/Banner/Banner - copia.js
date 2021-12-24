@@ -1,12 +1,11 @@
 import React, { PureComponent } from "react";
-import { View, Text, StyleSheet, TouchableOpacity,FlatList, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import he from "he";
 import * as WebBrowser from "expo-web-browser";
 import PropTypes from "prop-types";
 import { screenWidth } from "../../../constants/styleConstants";
 import { Image2, RTL } from "../../../wiloke-elements";
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
 
 // import { Image as ImageCache } from "react-native-expo-image-cache";
 
@@ -51,15 +50,8 @@ export default class Banner extends PureComponent {
     const uri = item.image;
     return (
       <TouchableOpacity activeOpacity={1} onPress={this._handlePressItem(item)}>
-        <View style={{ marginLeft:6, marginRight: 6 }}>
-            <Image
-            style={{ height:100,width: screenWidth/1.05,borderRadius:25, }}
-            source={{
-          uri: uri}}
-         resizeMode="cover"  />
-            </View>
+        <Image2 uri={uri} width={screenWidth} />
       </TouchableOpacity>
-  
     );
   };
 
@@ -67,26 +59,30 @@ export default class Banner extends PureComponent {
     const { data } = this.props;
     return (
       <View style={[styles.container]}>
-
-      <SwiperFlatList
-      autoplay
-      autoplayDelay={2}
-      autoplayLoop
-      autoplayLoopKeepAnimation
-      data={RTL() ? data.reverse() : data}
-      renderItem={this._renderItem}
-      keyExtractor = { (item,index) => index.toString() }
-    />
-        
-
+        <Carousel
+          data={RTL() ? data.reverse() : data}
+          firstItem={RTL() ? data.length - 1 : 0}
+          renderItem={this._renderItem}
+          itemWidth={screenWidth}
+          sliderWidth={screenWidth}
+          useScrollView={true}
+          inactiveSlideOpacity={1}
+          inactiveSlideScale={1}
+          activeSlideAlignment="center"
+          loop={true}
+          swipeThreshold={0}
+          autoplay={true}
+          autoplayInterval={this.props.timeInterval}
+          hasParallaxImages={true}
+          scrollEnabled={data.length > 1}
+        />
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {justifyContent: 'center',
-    alignItems: 'center'},
+  container: {},
   image: {
-    borderRadius: 25,
+    borderRadius: 5,
   },
 });

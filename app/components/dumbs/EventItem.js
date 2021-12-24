@@ -63,13 +63,6 @@ const EventItem = (props) => (
         {props.interested}
       </Text>
     </View>
-    <View style={[styles.footer, props.footerStyle]}>
-      <Text
-        style={{ fontSize: 11, color: Consts.colorDark3, textAlign: "left" }}
-      >
-        {props.hosted}
-      </Text>
-    </View>
   </TouchableOpacity>
 );
 

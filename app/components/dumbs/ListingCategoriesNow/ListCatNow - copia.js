@@ -8,21 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import PropTypes from "prop-types";
-import { LinearGradient } from "expo-linear-gradient";
 import {
   screenWidth,
   colorDark1,
   colorGray1,
-  ra,
   round,
   colorGray3,
 } from "../../../constants/styleConstants";
-import stylesBase from "../../../stylesBase";
 import { Row, Col, ImageCover, FontIcon } from "../../../wiloke-elements";
 import _ from "lodash";
 import he from "he";
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
-
 
 export default class ListCatNow extends PureComponent {
   static propTypes = {
@@ -74,33 +69,26 @@ export default class ListCatNow extends PureComponent {
 
   _renderCatItem = ({ item, index }) => {
     return (
-      <View style={[styles.container]}>
       <TouchableOpacity
-        style={[index === 0 ]}
+        style={[styles.catItem, index === 0 && { paddingBottom: 20 }]}
         onPress={this._handleItem(item)}
       >
         <View style={styles.box}>
           <ImageCover
-            src={item.oTerm.featuredImg}
+            src={item.oIcon.url}
             width="100%"
-            overlay={0.50}
-            borderRadius={10}
-            linearGradient="0,0,0"
             modifier="16by9"
           />
-          <View style={[stylesBase.absFull, styles.name]}>
-          <Text style={[stylesBase.h6, styles.text]}>{he.decode(item.oTerm.name)}</Text>
-          </View>
         </View>
+        <Text style={styles.name}>{he.decode(item.oTerm.name)}</Text>
       </TouchableOpacity>
-      </View>
     );
   };
 
   renderItem = ({ item, index }) => {
     return (
       <View
-        style={[styles.item, { width: screenWidth / 3, height: "100%" }]}
+        style={[styles.item, { width: screenWidth / 4 - 10, height: "100%" }]}
       >
         <FlatList
           data={item}
@@ -136,45 +124,43 @@ export default class ListCatNow extends PureComponent {
 
     return (
       <View style={[containerStyle]}>
-      
-
-        <SwiperFlatList
-      autoplay
-      autoplayDelay={3}
-      autoplayLoop
-      autoplayLoopKeepAnimation
-      data={data}
+        <FlatList
+        ref={(ref) => { this.flatListRef = ref; }}
+          data={data}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString() + "__category"}
-getItemLayout={this.getItemLayout}
-    />
-       
+          horizontal={true}
+      
+          getItemLayout={this.getItemLayout}
+          showsHorizontalScrollIndicator={false}
+        />
+        <View style={{marginTop: 10,marginBottom: -20,justifyContent: "center", alignItems: "center"}}>
+        <View style={{flexDirection:'row',justifyContent:'space-between', width: 200,justifyContent: "center", alignItems: "center"}}>
+        
+
+    <Button
+  onPress={this.scrollToFinal}
+  title="Nuevo Menu"
+
+  color="#841584"
+  accessibilityLabel="Learn more about this purple button"
+/>
+
+      </View>
+      </View>
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    position: "relative",
-    zIndex: 9,
-    overflow: "hidden",
-  },
   item: {
     marginHorizontal: 5,
   },
   box: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    height: 85.5,
-
-  },
-  text: {
-    color: "#fff",
-    
-  },
-  name: {
-    flex: 1,
+    width: 45,
+    height: 45,
   },
   openMapView: {
 
@@ -193,13 +179,10 @@ const styles = StyleSheet.create({
   },
   catItem: {
     alignItems: "center",
-     width: "100%",
-    height: "100%",
   },
   name: {
     fontSize: 11,
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 10,
     fontWeight: "500",
   },
 });

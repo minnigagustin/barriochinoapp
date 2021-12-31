@@ -40,7 +40,8 @@
     "expo-intent-launcher": "~9.0.0",
     "expo-linear-gradient": "~9.1.0",
     "expo-linking": "~2.2.3",
-    "expo-location": "~12.0.4",
+	"expo-localization": "^10.2.0",
+    "expo-location": "~12.1.2",
     "expo-media-library": "~12.0.2",
     "expo-modules-core": "^0.6.3",
     "expo-notifications": "~0.11.6",
@@ -104,7 +105,9 @@
     "babel-preset-expo": "8.3.0",
     "jest-expo": "^41.0.0",
     "release-it": "^12.2.2",
-    "whatwg-fetch": "^2.0.4"
+    "whatwg-fetch": "^2.0.4",
+	"@babel/core": "~7.9.0",
+    "expo-yarn-workspaces": "^1.2.1"
   },
   "resolutions": {
     "@react-native-community/cli-debugger-ui": "4.7.0"

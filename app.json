@@ -48,7 +48,7 @@
       }
     },
     "android": {
-      "googleServicesFile": "./google-services.json",
+	  "googleServicesFile": "./google-services.json",
       "package": "com.paya",
       "versionCode": 26,
       "config": {

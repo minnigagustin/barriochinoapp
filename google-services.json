@@ -42,6 +42,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844913067594:android:8ea1fa92f304d36fa708b3",
+        "android_client_info": {
+          "package_name": "com.paya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY0fzpKW0XcYk1ZzNspRuMXH01T330mW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844913067594-hnpcj02308fn256la93mb6umihrof5t0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

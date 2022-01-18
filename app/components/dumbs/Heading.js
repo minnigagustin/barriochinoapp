@@ -22,6 +22,7 @@ export default class Heading extends PureComponent {
       color: this.props.textColor,
       textAlign: rtl ? "left" : "auto",
     };
+    console.log(this.props);
     return (
       <View
         style={[

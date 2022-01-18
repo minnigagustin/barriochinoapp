@@ -35,8 +35,18 @@ export default class Layout extends Component {
     containerFixed: true,
   };
   renderHeader() {
-    const { navigation, colorPrimary, headerType } = this.props;
+    const { navigation, headerType, title } = this.props;
     const rtl = RTL();
+    let colorPrimary;
+    if(title === 'Barrio Chino'){
+      colorPrimary = 'rgb(230, 0, 0)';
+    } else if(title === 'Kosher'){
+      colorPrimary = 'rgb(0, 66, 103)';
+    } else if(title === 'Vegan'){
+      colorPrimary = 'rgb(172, 207, 81)';
+    } else {
+      colorPrimary = this.props.colorPrimary;
+    };
     switch (headerType) {
       case "headerHasBack":
         return (

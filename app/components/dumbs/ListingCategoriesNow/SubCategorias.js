@@ -8,21 +8,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import PropTypes from "prop-types";
-import { LinearGradient } from "expo-linear-gradient";
 import {
   screenWidth,
   colorDark1,
   colorGray1,
-  ra,
   round,
   colorGray3,
 } from "../../../constants/styleConstants";
-import stylesBase from "../../../stylesBase";
 import { Row, Col, ImageCover, FontIcon } from "../../../wiloke-elements";
 import _ from "lodash";
 import he from "he";
-import { SwiperFlatList } from 'react-native-swiper-flatlist';
-
 
 export default class ListCatNow extends PureComponent {
   static propTypes = {
@@ -32,12 +27,13 @@ export default class ListCatNow extends PureComponent {
 
   state = {
     data: [],
+    datavieja: [],
         currentStepIndex: '',
         selectCatg: 1
   };
 
   mapDataToCategories = () => {
-    const { cat } = this.props;
+    const cat = this.state.datavieja;
     const res = cat
       .reduce((newArr, item, index) => {
         const length = cat.length;
@@ -56,52 +52,71 @@ export default class ListCatNow extends PureComponent {
   };
 
   componentDidMount() {
-    this.setState({
+    if(this.state.selectCatg){
+    return fetch("http://appspuntaltenses.com/paya/subcategorias.php",{
+      method:'post',
+      header:{
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify({
+        // we will pass our input data to server
+        id: 1
+        
+
+      })
+      
+    })
+    .then((response)=> response.json())
+    .then((responseJson)=>{
+      this.setState({
+        datavieja: responseJson.Hoy,
+        isLoading:false
+      })
+      this.setState({
       data: this.mapDataToCategories(),
     });
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+    
   }
 
   _handleItem = (item) => () => {
     const { navigation } = this.props;
-        navigation.navigate("ListingCategories", {
-      categoryId: item.oTerm.term_id,
-      name: he.decode(item.oTerm.name),
+    navigation.push("ListingCategories", {
+      categoryId: item.termid,
+      name: he.decode(item.name),
       taxonomy: 'listing_cat',
       endpointAPI: 'list/listings',
     });
-
   };
   
 
   _renderCatItem = ({ item, index }) => {
     return (
-      <View style={[styles.container]}>
       <TouchableOpacity
-        style={[index === 0 ]}
+        style={[styles.catItem, index === 0 && { paddingBottom: 20 }]}
         onPress={this._handleItem(item)}
       >
         <View style={styles.box}>
           <ImageCover
-            src={item.oTerm.featuredImg}
+            src={item.icon}
             width="100%"
-            overlay={0.50}
-            borderRadius={10}
-            linearGradient="0,0,0"
             modifier="16by9"
           />
-          <View style={[stylesBase.absFull, styles.name]}>
-          <Text style={[stylesBase.h6, styles.text]}>{he.decode(item.oTerm.name)}</Text>
-          </View>
         </View>
+        <Text style={styles.name}>{he.decode(item.name)}</Text>
       </TouchableOpacity>
-      </View>
     );
   };
 
   renderItem = ({ item, index }) => {
     return (
       <View
-        style={[styles.item, { width: screenWidth / 3, height: "100%" }]}
+        style={[styles.item, { width: screenWidth / 4 - 10, height: "100%" }]}
       >
         <FlatList
           data={item}
@@ -137,45 +152,28 @@ export default class ListCatNow extends PureComponent {
 
     return (
       <View style={[containerStyle]}>
-      
-
-        <SwiperFlatList
-      autoplay
-      autoplayDelay={3}
-      autoplayLoop
-      autoplayLoopKeepAnimation
-      data={data}
+        <FlatList
+        ref={(ref) => { this.flatListRef = ref; }}
+          data={data}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString() + "__category"}
-getItemLayout={this.getItemLayout}
-    />
-       
+          horizontal={true}
+          getItemLayout={this.getItemLayout}
+          showsHorizontalScrollIndicator={false}
+        />
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    position: "relative",
-    zIndex: 9,
-    overflow: "hidden",
-  },
   item: {
     marginHorizontal: 5,
   },
   box: {
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
-    height: 85.5,
-
-  },
-  text: {
-    color: "#fff",
-    
-  },
-  name: {
-    flex: 1,
+    width: 45,
+    height: 45,
   },
   openMapView: {
 
@@ -194,13 +192,10 @@ const styles = StyleSheet.create({
   },
   catItem: {
     alignItems: "center",
-     width: "100%",
-    height: "100%",
   },
   name: {
     fontSize: 11,
-    alignItems: "center",
-    justifyContent: "center",
+    paddingTop: 10,
     fontWeight: "500",
   },
 });

@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { View, Platform, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { ScrollView, View, Platform, FlatList, StyleSheet, Dimensions, Text } from 'react-native';
 import _ from 'lodash';
+import stylesBase from "../../stylesBase";
 import he from 'he';
 import { connect } from 'react-redux';
 import { getListingByCat, getListingByCatLoadmore } from '../../actions';
 import ListingItem from '../dumbs/ListingItem';
 import EventItem from '../dumbs/EventItem';
+import Heading from '../dumbs/Heading';
 import {
   MessageError,
   RequestTimeoutWrapped,
@@ -16,8 +18,10 @@ import {
   Col,
   getBusinessStatus,
 } from '../../wiloke-elements';
+import Banner from "../dumbs/Banner/Banner";
+import Hero from "../dumbs/";
 import { screenWidth } from '../../constants/styleConstants';
-import ListCatNow from "../dumbs/ListingCategoriesNow/ListCatNow";
+import SubCategorias from "../dumbs/ListingCategoriesNow/SubCategorias";
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -150,15 +154,32 @@ class ListingByCatContainer extends Component {
   renderContentSuccess(listingByCat) {
     const { startLoadMore } = this.state;
     return (
-    <View>
-    {this.props.subcategories ? <ListCatNow
+
+
+    <ScrollView><View
+        style={[styles.categories, { marginVertical: 5 }]}
+      >
+    {this.props.subcategories &&  this.props.navigation.state.params.name === 'Barrio Chino' ?
+       <SubCategorias
           cat={this.props.subcategories}
           containerStyle={{
             paddingVertical: 0,
           }}
           navigation={this.props.navigation}
-        /> : null
-    }
+        />  : null
+    }</View>
+<Banner
+          navigation={this.props.navigation}
+          es={'NADA'}
+        />
+        <View style={styles.heading}>
+       <Heading
+          title={'Lo mas popular - ' + this.props.navigation.state.params.name}
+          text={''}
+          mb={2}
+        
+        />
+        </View>
       <FlatList
         data={listingByCat.oResults}
         renderItem={this.renderItem}
@@ -201,7 +222,7 @@ class ListingByCatContainer extends Component {
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
       />
-      </View>
+      </ScrollView>
     );
   }
 
@@ -240,9 +261,20 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     alignItems: 'center',
   },
+  categories: {
+    paddingTop: 5,
+    paddingBottom: 1,
+  },
   inner: {
     flex: 1,
     height: '100%',
+  },
+  heading: {
+    paddingTop: 5,
+    paddingHorizontal: 10,
+    paddingBottom: 5,
+    alignItems: "flex-start",
+    direction: "inherit",
   },
 });
 

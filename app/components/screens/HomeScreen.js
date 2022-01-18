@@ -621,6 +621,7 @@ class HomeScreen extends Component {
         <Banner
           navigation={navigation}
           data={results.banners}
+          es={'SI'}
           timeInterval={results.slider_interval}
           type={results.TYPE}
         />

@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Dimensions,
   Platform,
+  Image
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Constants from "expo-constants";
@@ -38,6 +39,33 @@ export default class HeaderHasBack extends PureComponent {
   };
 
   render() {
+let logotitle;
+if(this.props.title === 'Vegan'){
+  logotitle = <Image
+      style={{width: 100, height: 20}}
+      source={{uri: 'https://enelbarriochino.com/wp-content/uploads/vector-vegan-4.png.webp'}}
+    />;
+} else if(this.props.title === 'Kosher'){
+  logotitle = <Image
+      style={{width: 100, height: 20}}
+      source={{uri: 'https://enelbarriochino.com/wp-content/uploads/Kosher-2-2.png.webp'}}
+    />;
+  } else if(this.props.title === 'Barrio Chino'){
+    logotitle = <Image
+      style={{width: 70, height: 30}}
+      source={{uri: 'https://enelbarriochino.com/wp-content/uploads/2021/04/bc-logo-4.png.webp'}}
+    />;
+  } else {
+  logotitle = <Text
+              style={[
+                stylesBase.h5,
+                { color: this.props.tintColor, fontWeight: "500" },
+              ]}
+              numberOfLines={1}
+            >
+              {this.props.title}
+            </Text>
+}
 
     return (
       <View
@@ -74,15 +102,9 @@ export default class HeaderHasBack extends PureComponent {
           {this.props.renderCenter ? (
             this.props.renderCenter()
           ) : (
-            <Text
-              style={[
-                stylesBase.h5,
-                { color: this.props.tintColor, fontWeight: "500" },
-              ]}
-              numberOfLines={1}
-            >
-              {this.props.title}
-            </Text>
+          <View>
+            {logotitle}
+            </View>
           )}
         </View>
         <View

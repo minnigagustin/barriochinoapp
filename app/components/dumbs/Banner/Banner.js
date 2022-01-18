@@ -63,8 +63,44 @@ export default class Banner extends PureComponent {
     );
   };
 
+
+  componentDidMount(){
+    if(this.props.es === 'NADA'){
+    return fetch("http://appspuntaltenses.com/paya/comercial.php",{
+      method:'post',
+      header:{
+        'Accept': 'application/json',
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify({
+        // we will pass our input data to server
+        id: this.props.navigation.state.params.name
+        
+
+      })
+      
+    })
+    .then((response)=> response.json())
+    .then((responseJson)=>{
+      console.log(this.props.navigation.state.params.name);
+      this.setState({
+        data: responseJson.Hoy,
+        isLoading:false
+      })
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+  }
+  }
+
   render() {
-    const { data } = this.props;
+    let data;
+    if(this.props.es === 'SI'){
+      data = this.props.data;
+    } else {
+    data = this.state.data;
+  }
     return (
       <View style={[styles.container]}>
 

@@ -15,12 +15,12 @@ const homeStack = createStackNavigator(
     },
     ListingCategories: {
       screen: ListingCategories,
-      navigationOptions: ({ navigation }) => ({
-        gesturesEnabled: true,
-        gestureResponseDistance: {
-          horizontal: width
-        }
-      })
+     // navigationOptions: ({ navigation }) => ({
+       // gesturesEnabled: true,
+        //gestureResponseDistance: {
+         // horizontal: width
+       // }
+     // })
     },
     HomeNueva: {
       screen: HomeNueva

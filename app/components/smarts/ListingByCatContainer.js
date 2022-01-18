@@ -159,7 +159,12 @@ class ListingByCatContainer extends Component {
     <ScrollView><View
         style={[styles.categories, { marginVertical: 5 }]}
       >
+      <Banner
+          navigation={this.props.navigation}
+          es={'NADA'}
+        />
     {this.props.subcategories &&  this.props.navigation.state.params.name === 'Barrio Chino' ?
+
        <SubCategorias
           cat={this.props.subcategories}
           containerStyle={{
@@ -168,10 +173,7 @@ class ListingByCatContainer extends Component {
           navigation={this.props.navigation}
         />  : null
     }</View>
-<Banner
-          navigation={this.props.navigation}
-          es={'NADA'}
-        />
+
         <View style={styles.heading}>
        <Heading
           title={'Lo mas popular - ' + this.props.navigation.state.params.name}

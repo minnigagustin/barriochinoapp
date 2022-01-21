@@ -9,6 +9,7 @@ import { getListingByCat, getListingByCatLoadmore } from '../../actions';
 import ListingItem from '../dumbs/ListingItem';
 import EventItem from '../dumbs/EventItem';
 import Heading from '../dumbs/Heading';
+import ListingMarcas from '../dumbs/ListingMarcas';
 import {
   MessageError,
   RequestTimeoutWrapped,
@@ -153,10 +154,11 @@ class ListingByCatContainer extends Component {
 
   renderContentSuccess(listingByCat) {
     const { startLoadMore } = this.state;
+    const { translations } = this.props;
     return (
 
 
-    <ScrollView><View
+      <ScrollView><View
         style={[styles.categories, { marginVertical: 5 }]}
       >
       <Banner
@@ -175,13 +177,29 @@ class ListingByCatContainer extends Component {
     }</View>
 
         <View style={styles.heading}>
-       <Heading
-          title={'Lo mas popular - ' + this.props.navigation.state.params.name}
+        {this.props.navigation.state.params.name === 'Vegan' ? <Heading
+          title={'Opciones vegetarianas'}
           text={''}
           mb={2}
         
-        />
+        /> : <Heading
+          title={'Lo mas popular'}
+          text={''}
+          mb={2}
+        
+        />}
         </View>
+        {this.props.subcategories ?
+        <ListingMarcas
+            layout={"horizontal"}
+            data={listingByCat.oResults}
+            navigation={this.props.navigation}
+            colorPrimary={this.props.settings.colorPrimary}
+            unit={this.props.settings.unit}
+            translations={translations}
+            admob={this.props.settings.oAdMob}
+            postType={'restaurant'}
+          /> :
       <FlatList
         data={listingByCat.oResults}
         renderItem={this.renderItem}
@@ -223,7 +241,7 @@ class ListingByCatContainer extends Component {
           width: screenWidth,
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
-      />
+      /> }
       </ScrollView>
     );
   }

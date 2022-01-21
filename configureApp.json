@@ -1,6 +1,6 @@
 {
     "api": {
-        "baseUrl": "https://enelbarriochino.com/",
+        "baseUrl": "https://app.pidepaya.com/",
         "timeout": 100000
     },
     "colorPrimary": "#000000",

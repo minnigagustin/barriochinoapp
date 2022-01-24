@@ -50,7 +50,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "com.paya",
-      "versionCode": 26,
+      "versionCode": 27,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBcD3SzdN60Em_jo-Uup1zotROWEnxCKE8"

@@ -1,36 +1,66 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
 import {
-  View,
   Text,
-  Image,
-  ActivityIndicator,
-  TouchableHighlight,
-  Dimensions,
-  FlatList,
-  ScrollView,
+  View,
   StyleSheet,
-} from 'react-native';
-import _ from 'lodash';
-import he from 'he';
+  FlatList,
+  Button,
+  TouchableOpacity,
+} from "react-native";
+import PropTypes from "prop-types";
+import { LinearGradient } from "expo-linear-gradient";
+import {
+  screenWidth,
+  colorDark1,
+  colorGray1,
+  ra,
+  round,
+  colorGray3,
+} from "../../constants/styleConstants";
+import stylesBase from "../../stylesBase";
+import { Row, Col, ImageCover, FontIcon, getBusinessStatus, adMobModal } from "../../wiloke-elements";
+import _ from "lodash";
+import he from "he";
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import ListingItem from '../dumbs/ListingItem';
-import { Loader, getBusinessStatus, adMobModal } from '../../wiloke-elements';
-import * as Consts from '../../constants/styleConstants';
 import { getDistance } from '../../utils/getDistance';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
-
-// const emiter = new Emitter();
-
-class ListingMarcas extends PureComponent {
+export default class ListCatNow extends PureComponent {
   static propTypes = {
-    data: PropTypes.array,
-    colorPrimary: PropTypes.string,
+    cat: PropTypes.array,
+    containerStyle: PropTypes.object,
   };
 
-  static defaultProps = {
-    colorPrimary: Consts.colorPrimary,
+  state = {
+    data: [],
+        currentStepIndex: '',
+        selectCatg: 1
   };
+
+  mapDataToCategories = () => {
+    const { cat } = this.props;
+    const res = cat
+      .reduce((newArr, item, index) => {
+        const length = cat.length;
+        let catDouble = [];
+        if (index <= length - 1) {
+          if (index % 2 === 0) {
+            catDouble = !!cat[index + 1]
+              ? [cat[index], cat[index + 1]]
+              : [cat[index]];
+          }
+        }
+        return [...newArr, catDouble];
+      }, [])
+      .filter((i) => !_.isEmpty(i));
+    return res;
+  };
+
+  componentDidMount() {
+    this.setState({
+      data: this.mapDataToCategories(),
+    });
+  }
 
   _navigate = item => {
     const { navigation, postType } = this.props;
@@ -46,15 +76,8 @@ class ListingMarcas extends PureComponent {
       postType,
     });
   };
-
-  _handlePress = item => async () => {
-    const { admob } = this.props;
-    const isAdmob = _.get(admob, 'oFullWidth', false);
-    !!isAdmob && adMobModal({ variant: admob.oFullWidth.variant });
-    this._navigate(item);
-  };
-
-  renderItem = ({ item }) => {
+  
+  _renderCatItem = ({ item }) => {
     const { navigation, myCoords, unit, translations } = this.props;
 
     const address = item.oAddress || { lat: '', lng: '' };
@@ -89,42 +112,71 @@ class ListingMarcas extends PureComponent {
       />
     );
   };
-  renderItemLoader = () => <ListingItem contentLoader={true} layout={this.props.layout} />;
+
+  _handlePress = item => async () => {
+    const { admob } = this.props;
+    console.log('HOLLAAAAA PUITPOOOOS');
+    const isAdmob = _.get(admob, 'oFullWidth', false);
+    !!isAdmob && adMobModal({ variant: admob.oFullWidth.variant });
+    this._navigate(item);
+  };
+
+  renderItem = ({ item, index }) => {
+    return (
+      <View
+        style={[styles.item, { width: screenWidth / 1.7, height: "100%" }]}
+      >
+        <FlatList
+          data={item}
+          renderItem={this._renderCatItem}
+          keyExtractor={(item, index) => index.toString() + "__categoryItem"}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={false}
+        />
+        
+      </View>
+    );
+  };
+
+  scrollToIndex = () => {
+    
+    this.flatListRef.scrollToIndex({animated: true, index: 0});
+    this.setState({
+              selectCatg: 1
+            });
+  }
+  scrollToFinal = () => {
+    const { navigation } = this.props;
+    navigation.navigate("HomeNueva", {
+    });
+  }
+  getItemLayout = (data, index) => (
+    { length: 100, offset: 100 * index, index }
+  )
 
   render() {
-    const { data } = this.props;
+    const { cat, containerStyle } = this.props;
+    const { data } = this.state;
+
     return (
       <View style={styles.container}>
-        {data.length > 0 ? (
-          <FlatList
-            data={data}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.ID.toString()}
-            numColumns={this.props.layout === 'horizontal' ? 1 : 2}
-            horizontal={this.props.layout === 'horizontal' ? true : false}
-            showsHorizontalScrollIndicator={false}
-          />
-        ) : (
-          <FlatList
-            data={[
-              { key: '1' },
-              { key: '2' },
-              { key: '3' },
-              { key: '4' },
-              { key: '5' },
-              { key: '6' },
-            ]}
-            renderItem={this.renderItemLoader}
-            numColumns={1}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        )}
+      
+
+        <SwiperFlatList
+      autoplay
+      autoplayDelay={3}
+      autoplayLoop
+      autoplayLoopKeepAnimation
+      data={data}
+          renderItem={this.renderItem}
+          keyExtractor={(item, index) => index.toString() + "__category"}
+getItemLayout={this.getItemLayout}
+    />
+       
       </View>
     );
   }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,6 +184,47 @@ const styles = StyleSheet.create({
     padding: 5,
     
   },
-});
+  item: {
+    marginHorizontal: 5,
+  },
+  box: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: 85.5,
 
-export default ListingMarcas;
+  },
+  text: {
+    color: "#fff",
+    
+  },
+  name: {
+    flex: 1,
+  },
+  openMapView: {
+
+    right: 10,
+    width: 65,
+    height: 65,
+    borderRadius: 50,
+    backgroundColor: "#E60000",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 15,
+  },
+  catItem: {
+    alignItems: "center",
+     width: "100%",
+    height: "100%",
+  },
+  name: {
+    fontSize: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: "500",
+  },
+});

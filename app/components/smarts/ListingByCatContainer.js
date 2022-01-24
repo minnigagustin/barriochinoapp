@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { ScrollView, View, Platform, FlatList, StyleSheet, Dimensions, Text } from 'react-native';
+import { ScrollView, View, Platform, FlatList, StyleSheet, Dimensions, Text, TouchableOpacity } from 'react-native';
 import _ from 'lodash';
 import stylesBase from "../../stylesBase";
 import he from 'he';
@@ -17,9 +17,10 @@ import {
   ContentLoader,
   Row,
   Col,
-  getBusinessStatus,
+  getBusinessStatus, Button
 } from '../../wiloke-elements';
 import Banner from "../dumbs/Banner/Banner";
+import styless from "../screens/ListingDetailStyles";
 import Hero from "../dumbs/";
 import { screenWidth } from '../../constants/styleConstants';
 import SubCategorias from "../dumbs/ListingCategoriesNow/SubCategorias";
@@ -39,6 +40,7 @@ class ListingByCatContainer extends Component {
 
   state = {
     startLoadMore: false,
+    vermas: false,
   };
 
   _getListing = async () => {
@@ -190,16 +192,58 @@ class ListingByCatContainer extends Component {
         />}
         </View>
         {this.props.subcategories ?
-        <ListingMarcas
+        (!this.state.vermas ? <ListingMarcas
             layout={"horizontal"}
             data={listingByCat.oResults}
             navigation={this.props.navigation}
             colorPrimary={this.props.settings.colorPrimary}
             unit={this.props.settings.unit}
+            cat={listingByCat.oResults}
             translations={translations}
             admob={this.props.settings.oAdMob}
             postType={'restaurant'}
-          /> :
+          /> : <FlatList
+        data={listingByCat.oResults}
+        renderItem={this.renderItem}
+        keyExtractor={(item, index) => item.ID.toString() + index.toString()}
+        numColumns={this.props.horizontal ? 1 : 2}
+        horizontal={this.props.horizontal}
+        showsHorizontalScrollIndicator={false}
+        onEndReached={() => this._handleEndReached(listingByCat.next, listingByCat.totalPage)}
+        ListFooterComponent={() =>
+          startLoadMore && listingByCat.next !== false ? (
+            <View
+              style={{
+                width: screenWidth - 10,
+                marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
+              }}
+            >
+              <View style={{ padding: 5 }}>
+                <Row gap={10}>
+                  {Array(2)
+                    .fill(null)
+                    .map((_, index) => (
+                      <Col key={index.toString()} column={2} gap={10}>
+                        <ContentLoader
+                          featureRatioWithPadding="56.25%"
+                          contentHeight={90}
+                          content={true}
+                        />
+                      </Col>
+                    ))}
+                </Row>
+              </View>
+            </View>
+          ) : (
+            <View style={{ paddingBottom: 20 }} />
+          )
+        }
+        style={{ padding: 5 }}
+        columnWrapperStyle={{
+          width: screenWidth,
+          marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
+        }}
+      />  )  :
       <FlatList
         data={listingByCat.oResults}
         renderItem={this.renderItem}
@@ -242,6 +286,23 @@ class ListingByCatContainer extends Component {
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
       /> }
+
+      {this.props.subcategories ?
+
+      <TouchableOpacity
+          style={[
+            styless.buttonLargeContent,
+            { backgroundColor: 'black'},
+          ]}
+          activeOpacity={0.7}
+         
+           onPress={() => {
+                this.setState({ vermas : !this.state.vermas });
+                }}
+        >
+          
+          <Text style={styless.buttonText}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
+        </TouchableOpacity> : null }
       </ScrollView>
     );
   }

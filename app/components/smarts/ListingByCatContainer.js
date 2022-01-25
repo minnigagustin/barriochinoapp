@@ -172,6 +172,7 @@ class ListingByCatContainer extends Component {
        <SubCategorias
           cat={this.props.subcategories}
           containerStyle={{
+            paddingTop: 10,
             paddingVertical: 0,
           }}
           navigation={this.props.navigation}

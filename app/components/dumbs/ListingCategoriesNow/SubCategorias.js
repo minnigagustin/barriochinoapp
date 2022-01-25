@@ -18,6 +18,7 @@ import {
 import { Row, Col, ImageCover, FontIcon } from "../../../wiloke-elements";
 import _ from "lodash";
 import he from "he";
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
 
 export default class ListCatNow extends PureComponent {
   static propTypes = {
@@ -152,8 +153,12 @@ export default class ListCatNow extends PureComponent {
 
     return (
       <View style={[containerStyle]}>
-        <FlatList
+        <SwiperFlatList
         ref={(ref) => { this.flatListRef = ref; }}
+          autoplay
+          autoplayDelay={2}
+          autoplayLoop
+          autoplayLoopKeepAnimation
           data={data}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index.toString() + "__category"}

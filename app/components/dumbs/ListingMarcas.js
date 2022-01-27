@@ -115,7 +115,6 @@ export default class ListCatNow extends PureComponent {
 
   _handlePress = item => async () => {
     const { admob } = this.props;
-    console.log('HOLLAAAAA PUITPOOOOS');
     const isAdmob = _.get(admob, 'oFullWidth', false);
     !!isAdmob && adMobModal({ variant: admob.oFullWidth.variant });
     this._navigate(item);

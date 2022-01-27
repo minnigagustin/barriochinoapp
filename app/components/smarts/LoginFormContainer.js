@@ -401,9 +401,10 @@ class LoginFormContainer extends Component {
           >
             <Button
               backgroundColor="primary"
-                    colorPrimary="#000000"
+                    colorPrimary="#ffdc00"
               size="lg"
           radius="round"
+          textStyle={{color: '#000000'}}
           block={true}
               onPress={this._handleTab("login")}
             >

@@ -47,7 +47,7 @@ export default class FBButton extends PureComponent {
 
   _handleLogin = async () => {
     const { onAction, onError, appID } = this.props;
-
+    console.log(appID);
     try {
       await Facebook.initializeAsync(appID);
       await Facebook.setAutoInitEnabledAsync(true);

@@ -30,6 +30,9 @@ import {
 import * as Consts from "../../constants/styleConstants";
 import _ from "lodash";
 import { bottomBarHeight, FontIcon, getIDListing } from "../../wiloke-elements";
+import { SwiperFlatList } from 'react-native-swiper-flatlist';
+import {FlatListSlider} from 'react-native-flatlist-slider';
+
 
 class ListingDetailNavContainer extends Component {
   static defaultProps = {
@@ -195,7 +198,11 @@ class ListingDetailNavContainer extends Component {
   render() {
     const { listingDetailNav } = this.props;
     return (
-      <FlatList
+      <SwiperFlatList
+      autoplay
+          autoplayDelay={2}
+          autoplayLoop
+          autoplayLoopKeepAnimation
         style={styles.navigation}
         // data={listingDetailNav.filter(
         //   item => !this._getTabEmpty().includes(item.category)

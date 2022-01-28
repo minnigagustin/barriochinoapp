@@ -16,6 +16,7 @@ const RootTabNavOpts = (colorPrimary) => ({
     style: {
       backgroundColor: "#000000",
       borderTopWidth: 0,
+      height: 60,
       borderTopColor: "#fff",
     },
     labelStyle: {
@@ -25,8 +26,8 @@ const RootTabNavOpts = (colorPrimary) => ({
       padding: 0,
       paddingLeft: 3,
       paddingRight: 3,
-      paddingBottom: 2,
-      margin: 0,
+      paddingBottom: 8,
+      margin: -15,
     },
     indicatorStyle: {
       backgroundColor: "transparent",

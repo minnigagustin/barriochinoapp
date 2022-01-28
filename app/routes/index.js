@@ -370,7 +370,7 @@ class RootStack extends Component {
           default:
             return (
               !!iconName && (
-                <FontIcon name={iconName} size={22} color={tintColor} />
+                <FontIcon name={iconName} size={18} color={tintColor} />
               )
             );
         }

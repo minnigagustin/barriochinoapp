@@ -74,9 +74,9 @@ class ListingsContainer extends Component {
     refreshing: false,
     startLoadmore: false,
     postType: null,
-    isMapVisible: false,
+    isMapVisible: true,
     aceptar: true,
-    isMapVisibleAnimated: new Animated.Value(0),
+    isMapVisibleAnimated: new Animated.Value(100),
     itemCurrentSlideID: null,
   };
 

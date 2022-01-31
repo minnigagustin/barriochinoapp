@@ -298,7 +298,13 @@ class ListingByCatContainer extends Component {
           activeOpacity={0.7}
          
            onPress={() => {
-                this.setState({ vermas : !this.state.vermas });
+            const { navigation } = this.props;
+            navigation.push("ListingCategories", {
+              categoryId: navigation.state.params.categoryId,
+              name: navigation.state.params.name,
+              taxonomy: 'listing_cat',
+              endpointAPI: 'list/listings',
+            });
                 }}
         >
           

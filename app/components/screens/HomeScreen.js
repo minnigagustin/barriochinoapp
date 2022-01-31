@@ -79,6 +79,7 @@ class HomeScreen extends Component {
       notification: null,
       animationType: "none",
       subcategories: null,
+      subevents: null,
     };
   }
 
@@ -407,6 +408,7 @@ class HomeScreen extends Component {
   renderEvent = (data, eventSettings, index) => {
     const style = eventSettings.style || "simple_slider";
     const { bg_color } = eventSettings;
+    this.setState({subevents : data});
     const backgroundColor = !!bg_color ? bg_color : Consts.colorGray2;
     return (
       <View style={[styles.events, { backgroundColor }]}>
@@ -652,6 +654,7 @@ class HomeScreen extends Component {
           categories={listing}
           navigation={navigation}
           subcategories={this.state.subcategories}
+          subevents={this.state.subevents}
           postType={setting.post_type}
         />
       </View>

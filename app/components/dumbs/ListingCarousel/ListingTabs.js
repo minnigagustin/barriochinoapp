@@ -196,13 +196,14 @@ class ListingTabs extends PureComponent {
   };
 
   render() {
-    const { tabs, settings, initialIndex, categories, subcategories, navigation } = this.props;
+    const { tabs, settings, initialIndex, categories, subcategories, navigation, subevents } = this.props;
     return (
       <View>
         <ListCategoriesSelect
           categories={categories}
           onSelect={this._handleSelectCat}
           subcategories={subcategories}
+          subevents={subevents}
           navigation={navigation}
         />
      

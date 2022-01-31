@@ -60,12 +60,13 @@ export default class ListCategoriesSelect extends PureComponent {
     });
 
   } else {
-    const { subcategories } = this.props;
+    const { subcategories, subevents } = this.props;
     navigation.navigate("ListingCategories", {
       categoryId: item.oTerm.term_id,
       name: he.decode(item.oTerm.name),
       taxonomy: "listing_cat",
       subcategories: subcategories,
+      subevents: subevents,
       endpointAPI: item.restAPI,
     });
   }

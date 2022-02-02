@@ -174,6 +174,7 @@ class ListingByCatContainer extends Component {
           containerStyle={{
             paddingTop: 10,
             paddingVertical: 0,
+            paddingBottom: 10
           }}
           navigation={this.props.navigation}
         />  : null

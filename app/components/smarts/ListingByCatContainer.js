@@ -174,11 +174,12 @@ class ListingByCatContainer extends Component {
           containerStyle={{
             paddingTop: 10,
             paddingVertical: 0,
+            paddingBottom: 10
           }}
           navigation={this.props.navigation}
         />  : null
     }</View>
-
+    <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
         <View style={styles.heading}>
         {this.props.navigation.state.params.name === 'Vegan' ? <Heading
           title={'Opciones vegetarianas'}
@@ -190,8 +191,36 @@ class ListingByCatContainer extends Component {
           text={''}
           mb={2}
         
-        />}
+        />} 
         </View>
+        {this.props.subcategories ?
+
+<TouchableOpacity
+    style={
+      { justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    height: 30,
+    borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
+    }
+    activeOpacity={0.7}
+   
+     onPress={() => {
+      const { navigation } = this.props;
+      navigation.push("ListingCategories", {
+        categoryId: navigation.state.params.categoryId,
+        name: navigation.state.params.name,
+        taxonomy: 'listing_cat',
+        endpointAPI: 'list/listings',
+      });
+          }}
+  >
+    
+    <Text style={{fontSize: 13,
+    fontWeight: "bold",
+    color: "#fff",}}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
+  </TouchableOpacity> : null }
+  </View>
         {this.props.subcategories ?
         (!this.state.vermas ? <ListingMarcas
             layout={"horizontal"}
@@ -288,22 +317,7 @@ class ListingByCatContainer extends Component {
         }}
       /> }
 
-      {this.props.subcategories ?
-
-      <TouchableOpacity
-          style={[
-            styless.buttonLargeContent,
-            { backgroundColor: 'black'},
-          ]}
-          activeOpacity={0.7}
-         
-           onPress={() => {
-                this.setState({ vermas : !this.state.vermas });
-                }}
-        >
-          
-          <Text style={styless.buttonText}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
-        </TouchableOpacity> : null }
+      
       </ScrollView>
     );
   }

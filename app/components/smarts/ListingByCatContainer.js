@@ -179,7 +179,7 @@ class ListingByCatContainer extends Component {
           navigation={this.props.navigation}
         />  : null
     }</View>
-    <View style={{flexDirection: 'row', width: '100%'}}>
+    <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
         <View style={styles.heading}>
         {this.props.navigation.state.params.name === 'Vegan' ? <Heading
           title={'Opciones vegetarianas'}
@@ -196,10 +196,13 @@ class ListingByCatContainer extends Component {
         {this.props.subcategories ?
 
 <TouchableOpacity
-    style={[
-      styless.buttonLargeContent,
-      { backgroundColor: 'black', width: '50%', left: 5},
-    ]}
+    style={
+      { justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    height: 30,
+    borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
+    }
     activeOpacity={0.7}
    
      onPress={() => {
@@ -213,7 +216,9 @@ class ListingByCatContainer extends Component {
           }}
   >
     
-    <Text style={styless.buttonText}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
+    <Text style={{fontSize: 13,
+    fontWeight: "bold",
+    color: "#fff",}}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
   </TouchableOpacity> : null }
   </View>
         {this.props.subcategories ?

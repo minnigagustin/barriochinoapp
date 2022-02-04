@@ -106,7 +106,6 @@ export default class ListCatNow extends PureComponent {
           <ImageCover
             src={item.icon}
             width="100%"
-            modifier="16by9"
           />
         </View>
         <Text style={styles.name}>{he.decode(item.name)}</Text>
@@ -200,7 +199,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 11,
-    paddingTop: 10,
     fontWeight: "500",
   },
 });

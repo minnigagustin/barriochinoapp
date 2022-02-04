@@ -6,6 +6,7 @@ import {
   Text,
   ActivityIndicator,
   StyleSheet,
+  TouchableOpacity,
   Platform,
   Dimensions,
 } from "react-native";
@@ -255,9 +256,15 @@ class HomeScreen extends Component {
     const style = listingSettings.style || "simple_slider";
     const { bg_color } = listingSettings;
     const backgroundColor = !!bg_color ? bg_color : Consts.colorGray2;
+    console.log('ME SIGUEEEEEEEEE' + JSON.stringify(listingSettings));
+    const od = listingSettings.listing_cats;
+
+const frg = od.split(":");
+
+const result = frg[0];
 
     return (
-      <View style={[styles.listing, { backgroundColor }]}>
+      <View style={[styles.listing, { backgroundColor, paddingBottom: 40 }]}>
         {style === "modern_slider" ? (
           <ListingLayoutPopular
             data={data}
@@ -280,7 +287,33 @@ class HomeScreen extends Component {
             admob={settings.oAdMob}
             postType={listingSettings.post_type}
           />
+
         )}
+        <TouchableOpacity
+    style={
+      { justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    height: 30,
+    bottom: 10,
+    right: 5,
+    borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
+    }
+    activeOpacity={0.7}
+   
+     onPress={() => {
+      const { navigation } = this.props;
+      navigation.push("ListingCategories", {
+        categoryId: result,
+        taxonomy: 'listing_cat',
+        endpointAPI: 'list/listings',
+      });
+          }}
+  >
+
+        <Text style={{fontSize: 13,
+    fontWeight: "bold",
+    color: "#fff",}}>Ver +</Text></TouchableOpacity> 
       </View>
     );
   };

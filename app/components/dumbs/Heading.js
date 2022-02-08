@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Consts from "../../constants/styleConstants";
 import stylesBase from "../../stylesBase";
 import _ from "lodash";
@@ -24,16 +24,8 @@ export default class Heading extends PureComponent {
     };
     console.log(this.props);
     return (
-      <View
-        style={[
-          styles.container,
-          {
-            marginBottom: this.props.mb,
-            alignItems: this.props.align,
-          },
-          this.props.style,
-        ]}
-      >
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
+     
         <Text
           style={[stylesBase.h6, titleStyles]}
           numberOfLines={this.props.titleNumberOfLines}
@@ -41,13 +33,35 @@ export default class Heading extends PureComponent {
           {he.decode(this.props.title.replace(":apos:", "'"))}
         </Text>
         {!_.isEmpty(this.props.text) && (
-          <Text
-            style={[stylesBase.text, textStyles]}
-            numberOfLines={this.props.textNumberOfLines}
-          >
-            {he.decode(this.props.text)}
-          </Text>
+         <TouchableOpacity
+         style={
+           { justifyContent: "center",
+         alignItems: "center",
+         flexDirection: "row",
+         height: 30,
+         borderRadius: 3, backgroundColor: 'black', width: '30%'}
+         }
+         activeOpacity={0.7}
+        
+          onPress={() => {
+           const { navigation } = this.props;
+           console.log(this.props.text);
+           navigation.navigate("ListingCategories", {
+             categoryId: this.props.text,
+             subcategories: 'sf',
+             name: he.decode(this.props.title.replace(":apos:", "'")),
+             taxonomy: 'listing_cat',
+             endpointAPI: 'list/listings',
+           });
+               }}
+       >
+         
+         <Text style={{fontSize: 13,
+         fontWeight: "bold",
+         color: "#fff",}}>Ver +</Text>
+       </TouchableOpacity>
         )}
+    
       </View>
     );
   }

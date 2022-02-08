@@ -234,11 +234,13 @@ class HomeScreen extends Component {
 
   renderHeading = (data, index) => {
     const { bg_color } = data;
+    const { navigation } = this.props;
     const backgroundColor = !!bg_color ? bg_color : Consts.colorGray2;
     return (
       <View style={[styles.heading, { backgroundColor }]}>
         <Heading
           title={data.heading}
+          navigation={navigation}
           text={data.description}
           mb={2}
           {...(!!data.heading_color ? { titleColor: data.heading_color } : {})}
@@ -264,7 +266,7 @@ const frg = od.split(":");
 const result = frg[0];
 
     return (
-      <View style={[styles.listing, { backgroundColor, paddingBottom: 40 }]}>
+      <View style={[styles.listing, { backgroundColor }]}>
         {style === "modern_slider" ? (
           <ListingLayoutPopular
             data={data}
@@ -289,31 +291,7 @@ const result = frg[0];
           />
 
         )}
-        <TouchableOpacity
-    style={
-      { justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    height: 30,
-    bottom: 10,
-    right: 5,
-    borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
-    }
-    activeOpacity={0.7}
-   
-     onPress={() => {
-      const { navigation } = this.props;
-      navigation.push("ListingCategories", {
-        categoryId: result,
-        taxonomy: 'listing_cat',
-        endpointAPI: 'list/listings',
-      });
-          }}
-  >
-
-        <Text style={{fontSize: 13,
-    fontWeight: "bold",
-    color: "#fff",}}>Ver +</Text></TouchableOpacity> 
+        
       </View>
     );
   };

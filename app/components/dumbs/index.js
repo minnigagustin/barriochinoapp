@@ -2,6 +2,7 @@ import EventItem from "./EventItem";
 import Header from "./Header";
 import HeaderHasFilter from "./HeaderHasFilter";
 import Heading from "./Heading";
+import Headingnuevo from "./Headingnuevo";
 import Hero from "./Hero";
 import Layout from "./Layout";
 import LayoutHeaderParallax from "./LayoutHeaderParallax";
@@ -85,6 +86,7 @@ export {
   ListingLayoutHorizontal,
   ListingLayoutPopular,
   ListingLayoutCat,
+  Headingnuevo,
   ParallaxListingScreen,
   ButtonFooterContentBox,
   ListingHours,

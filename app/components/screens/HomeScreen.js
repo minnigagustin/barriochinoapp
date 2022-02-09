@@ -28,6 +28,7 @@ import {
 } from "../../wiloke-elements";
 import {
   Heading,
+  Headingnuevo,
   Hero,
   Layout,
   ListingLayoutHorizontal,
@@ -238,7 +239,7 @@ class HomeScreen extends Component {
     const backgroundColor = !!bg_color ? bg_color : Consts.colorGray2;
     return (
       <View style={[styles.heading, { backgroundColor }]}>
-        <Heading
+        <Headingnuevo
           title={data.heading}
           navigation={navigation}
           text={data.description}

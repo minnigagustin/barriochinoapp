@@ -197,6 +197,7 @@ class ListingTabs extends PureComponent {
 
   render() {
     const { tabs, settings, initialIndex, categories, subcategories, navigation, subevents } = this.props;
+    console.log('PROBANDOOOOOO' + subevents)
     return (
       <View>
         <ListCategoriesSelect

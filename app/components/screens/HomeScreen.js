@@ -81,7 +81,7 @@ class HomeScreen extends Component {
       notification: null,
       animationType: "none",
       subcategories: null,
-      subevents: null,
+      subevents: null
     };
   }
 
@@ -348,7 +348,7 @@ const result = frg[0];
     const { navigation } = this.props;
     const { style } = catSettings;
     const { bg_color } = catSettings;
-    this.setState({subcategories : data})
+    this.setState({subcategories : data});
     const backgroundColor = !!bg_color ? bg_color : "#fff";
     return (
       <View
@@ -418,9 +418,9 @@ const result = frg[0];
   };
 
   renderEvent = (data, eventSettings, index) => {
+    console.log('PROBANDO ANDO ANDO ANDOD ANDAODAODSAODSAODASODASOD' + data);
     const style = eventSettings.style || "simple_slider";
     const { bg_color } = eventSettings;
-    this.setState({subevents : data});
     const backgroundColor = !!bg_color ? bg_color : Consts.colorGray2;
     return (
       <View style={[styles.events, { backgroundColor }]}>
@@ -713,12 +713,14 @@ const result = frg[0];
       case "LISTINGS":
         return this.renderListing(section.oResults, section.oSettings, index);
       case "MODERN_TERM_BOXES":
+        this.setState({subevents : 'AQUI VAN LAS OFERTAS'})
         return this.renderCategories(
           section.oResults,
           section.oSettings,
           index
         );
       case "EVENTS":
+        
         return this.renderEvent(section.oResults, section.oSettings, index);
       case "GOOGLE_ADMOB":
         return this.renderAdmob(section.oResults, index);

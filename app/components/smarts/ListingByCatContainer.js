@@ -316,7 +316,7 @@ class ListingByCatContainer extends Component {
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
       /> }
-
+<Text>{JSON.stringify(this.props.subevents)}</Text>
       
       </ScrollView>
     );

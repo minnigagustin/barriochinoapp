@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "2.1.1",
+    "version": "2.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -50,7 +50,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "com.paya",
-      "versionCode": 27,
+      "versionCode": 28,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBcD3SzdN60Em_jo-Uup1zotROWEnxCKE8"

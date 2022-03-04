@@ -423,7 +423,7 @@ class ListingsContainer extends Component {
               mapMarkerKeyExtractor={(item) => item.ID.toString()}
               renderMapMarker={this._renderMapMarker}
               getCurrentItem={this._handleGetCurrentItem}
-              mapZoom={settings.defaultMapZoom}
+              mapZoom={25}
             />
           ) : (
             this.renderContentError(listings[postType])

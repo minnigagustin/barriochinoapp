@@ -2,7 +2,7 @@ import React from "react";
 import { Image, Button, StyleSheet, Text, View } from "react-native";
 import { AuthSession } from "expo";
 
-const FB_APP_ID = "221419538589456";
+const FB_APP_ID = "356647296289709";
 
 export default class FbAuth extends React.Component {
   state = {

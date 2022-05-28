@@ -362,7 +362,7 @@ class LoginFormContainer extends Component {
           ]}
           renderButtonSubmit={this._renderFooterOfFormLogin}
         />
-    
+
       </View>
     );
   };
@@ -420,7 +420,7 @@ class LoginFormContainer extends Component {
         >
           <P>{translations.lostPassword}</P>
         </TouchableOpacity>
-        {configureApp.googleLogin.usesGoogleSignIn && (
+        {/* configureApp.googleLogin.usesGoogleSignIn && (
           <View style={{ marginTop: 10 }}>
             <GoogleButton
               radius="round"
@@ -456,7 +456,7 @@ class LoginFormContainer extends Component {
                 buttonStyle="black"
               />
             </View>
-          )}
+          ) */}
       </View>
     );
   };

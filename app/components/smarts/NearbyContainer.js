@@ -25,7 +25,7 @@ import * as Location from "expo-location";
 import * as IntentLauncher from "expo-intent-launcher";
 import he from "he";
 
-const RADIUS = 5;
+const RADIUS = 1000000;
 
 class NearbyContainer extends PureComponent {
   static propTypes = {
@@ -87,6 +87,9 @@ class NearbyContainer extends PureComponent {
             { cancelable: false }
           );
     }
+  };
+  componentDidMount(){
+    this._getLocationAsync();
   };
 
   componentDidUpdate(prevProps, prevState) {

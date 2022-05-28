@@ -7,6 +7,6 @@ export function getDistance(lat1, lng1, lat2, lng2, unit) {
       : "";
   return (_distance =
     distance < 300 && !!distance
-      ? `${Number.parseFloat(distance).toFixed(1)} ${unit}`
+      ? Number(distance)
       : "");
 }

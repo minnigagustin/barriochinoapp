@@ -65,8 +65,8 @@ class EventsContainer extends Component {
   state = {
     startLoadmore: false,
     postType: null,
-    isMapVisible: false,
-    isMapVisibleAnimated: new Animated.Value(0),
+    isMapVisible: true,
+    isMapVisibleAnimated: new Animated.Value(100),
     itemCurrentSlideID: null,
   };
 
@@ -229,9 +229,12 @@ class EventsContainer extends Component {
 
   renderContentSuccess(events) {
     const { startLoadmore } = this.state;
+    const ordenado = events.oResults.sort((a, b) => {
+      return getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, a.oAddress.lat, a.oAddress.lng, this.props.settings.unit) > getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, b.oAddress.lat, b.oAddress.lng, this.props.settings.unit)
+    });
     return (
       <FlatList
-        data={events.oResults}
+        data={ordenado}
         renderItem={this.renderItem()}
         keyExtractor={(item, index) => item.ID.toString() + index.toString()}
         numColumns={2}
@@ -324,6 +327,9 @@ class EventsContainer extends Component {
   _renderMapView = () => {
     const { events, loading, settings } = this.props;
     const { isMapVisible } = this.state;
+    const ordenado = this._getDataForMap().sort((a, b) => {
+      return getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, a.oAddress.lat, a.oAddress.lng, this.props.settings.unit) > getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, b.oAddress.lat, b.oAddress.lng, this.props.settings.unit)
+    });
     return (
       <Animated.View
         style={[
@@ -335,7 +341,7 @@ class EventsContainer extends Component {
       >
         {!loading && isMapVisible ? (
           <MapSlider
-            data={this._getDataForMap()}
+            data={ordenado}
             renderItem={this.renderItem({
               width: "100%",
               paddingHorizontal: 0,

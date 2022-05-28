@@ -39,6 +39,11 @@ export default class ListCatNow extends PureComponent {
 
   mapDataToCategories = () => {
     const { cat } = this.props;
+    if(this.props.nuevo){
+      cat.sort((a, b) => {
+        return a.ID > b.ID
+      });
+    }
     const res = cat
       .reduce((newArr, item, index) => {
         const length = cat.length;
@@ -156,11 +161,12 @@ export default class ListCatNow extends PureComponent {
   render() {
     const { cat, containerStyle } = this.props;
     const { data } = this.state;
+    
+    console.log(data);
 
     return (
       <View style={styles.container}>
       
-
         <SwiperFlatList
       autoplay
       autoplayDelay={3}

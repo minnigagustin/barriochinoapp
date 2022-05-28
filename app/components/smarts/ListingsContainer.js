@@ -13,9 +13,9 @@ import {
   Text,
   Alert,
   Image,
-  TouchableOpacity,
-  AsyncStorage
+  TouchableOpacity
 } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from "lodash";
 import he from "he";
 import { connect } from "react-redux";
@@ -144,7 +144,7 @@ class ListingsContainer extends Component {
     this._getListing();
     AsyncStorage.getItem('gps').then((value) => {
       if(value){
-     this.setState({ aceptar: false });   
+     this.setState({ aceptar: false });
     }
       });
   }
@@ -276,10 +276,13 @@ class ListingsContainer extends Component {
 
   renderContentSuccess(listings) {
     const { startLoadmore } = this.state;
+    const ordenado = listings.oResults.sort((a, b) => {
+      return getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, a.oAddress.lat, a.oAddress.lng, this.props.settings.unit) > getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, b.oAddress.lat, b.oAddress.lng, this.props.settings.unit)
+    });
     return (
 
       <FlatList
-        data={listings.oResults}
+        data={ordenado}
         renderItem={this.renderItem({})}
         keyExtractor={(item, index) => item.ID.toString()}
         numColumns={this.props.horizontal ? 1 : 2}
@@ -396,6 +399,9 @@ class ListingsContainer extends Component {
     const { listings, loading, settings } = this.props;
     const { postType, isMapVisible } = this.state;
     const data = this._getDataForMap();
+    data.sort((a, b) => {
+      return getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, a.oAddress.lat, a.oAddress.lng, this.props.settings.unit) > getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, b.oAddress.lat, b.oAddress.lng, this.props.settings.unit)
+    });
 
     return (
       <Animated.View
@@ -423,7 +429,7 @@ class ListingsContainer extends Component {
               mapMarkerKeyExtractor={(item) => item.ID.toString()}
               renderMapMarker={this._renderMapMarker}
               getCurrentItem={this._handleGetCurrentItem}
-              mapZoom={25}
+              mapZoom={39.90}
             />
           ) : (
             this.renderContentError(listings[postType])
@@ -452,7 +458,7 @@ class ListingsContainer extends Component {
             color="#ffff"
           />
         ) : (
-          
+
           <FontIcon
             name="fa fa-th-large"
             size={35}
@@ -508,10 +514,10 @@ class ListingsContainer extends Component {
     return (
       <View style={[styles.container]}>
       {this.state.aceptar &&
-    
+
       <View style={[styles.aviso]}>
       <View style={[styles.triaviso]} />
-      
+
       <View style={[styles.globoaviso]}>
         <FontIcon
             name="fa fa-map-marker"
@@ -520,13 +526,13 @@ class ListingsContainer extends Component {
             style={{right: 4}}
           />
       <Text style={[styles.textaviso]}>Enciende tu GPS para una mejor experiencia!</Text>
-    
+
       <TouchableOpacity onPress={()=>this.aceptargps()} style={{
                  backgroundColor:"#FFD200",
-                 
+
                  alignItems:'center',
                  padding:7,
-   
+
                  borderRadius:3
 
                }}>
@@ -537,12 +543,12 @@ class ListingsContainer extends Component {
             name="fa fa-close"
           size={17}
             color="#ffff"
-            
+
           />
           </TouchableOpacity>
- 
+
       </View>
-   
+
       </View>
      }
         {this._renderMapView()}
@@ -654,7 +660,7 @@ const styles = StyleSheet.create({
   logoraro: {
     width: 36,
     height: 36,
-   
+
   },
 });
 

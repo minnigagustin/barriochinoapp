@@ -276,7 +276,7 @@ class FirstLoginScreen extends PureComponent {
     return (
       <View style={{ width: "100%" }}>
         <View style={{ marginBottom: 10 }}>
-          {configureApp.googleLogin.usesGoogleSignIn && (
+          {/* configureApp.googleLogin.usesGoogleSignIn && (
             <GoogleButton
               radius="round"
               isLoading={false}
@@ -284,9 +284,9 @@ class FirstLoginScreen extends PureComponent {
               textButton={translations.loginWithGoogle}
               style={{ borderRadius: 6, height: 50, paddingTop: 15 }}
             />
-          )}
+          ) */}
         </View>
-        {!oFacebook && oFacebook.isEnableFacebookLogin && (
+        {/* !oFacebook && oFacebook.isEnableFacebookLogin && (
           <FBButton
             radius="round"
             isLoading={false}
@@ -295,9 +295,9 @@ class FirstLoginScreen extends PureComponent {
             onError={this._handleLoginFbError}
             style={{ borderRadius: 6, height: 50 }}
           />
-        )}
+        ) */}
 
-        {Platform.OS === "ios" &&
+        {/* Platform.OS === "ios" &&
           majorVersionIOS > 12 &&
           iOsSettings.usesAppleSignIn && (
             <View style={{ marginTop: 10 }}>
@@ -307,7 +307,7 @@ class FirstLoginScreen extends PureComponent {
                 buttonStyle={configureApp.appleColor}
               />
             </View>
-          )}
+          ) */}
       </View>
     );
   };

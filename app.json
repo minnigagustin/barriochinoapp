@@ -12,11 +12,6 @@
     "version": "2.1.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#3dc0ff"
-    },
     "notification": {
       "icon": "./assets/notification.png",
       "iosDisplayInForeground": true,
@@ -31,7 +26,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "13",
+      "buildNumber": "15",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "This app uses the location to show listings nearby you.",
@@ -50,7 +45,7 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "com.paya",
-      "versionCode": 28,
+      "versionCode": 29,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBcD3SzdN60Em_jo-Uup1zotROWEnxCKE8"

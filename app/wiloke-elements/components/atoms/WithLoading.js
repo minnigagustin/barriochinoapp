@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import { isEmpty } from "lodash";
 import ContentLoader from "../molecules/ContentLoader";
 import Loader from "./Loader";
@@ -225,28 +225,19 @@ const ViewWithLoading = props => {
   );
   return condition ? (
     !!contentLoader ? (
-      <View style={{ padding: containerPadding }}>
-        <Row gap={gap}>
-          {Array(contentLoaderItemLength)
-            .fill(null)
-            .map((_, index) => {
-              return (
-                <Col
-                  key={index.toString()}
-                  column={column}
-                  gap={gap}
-                  style={{
-                    marginBottom: contentLoaderItemLength === 1 ? gap : 0
-                  }}
-                >
-                  {contentLoaded}
-                </Col>
-              );
-            })}
-        </Row>
-      </View>
+      <View style={{flex: 1, alignItems: 'center',
+      justifyContent: 'center',}}>
+      <Image
+        style={{width: 300, height: 200}}
+        source={{uri: 'https://wepardo.com.ar/AnimacionPaya.gif'}} />
+    </View>
     ) : (
-      <Loader size="small" height={150} />
+      <View style={{flex: 1, alignItems: 'center',
+      justifyContent: 'center',}}>
+      <Image
+        style={{width: 300, height: 200}}
+        source={{uri: 'https://wepardo.com.ar/AnimacionPaya.gif'}} />
+    </View>
     )
   ) : (
     children

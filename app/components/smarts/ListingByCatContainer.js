@@ -157,6 +157,12 @@ class ListingByCatContainer extends Component {
   renderContentSuccess(listingByCat) {
     const { startLoadMore } = this.state;
     const { translations } = this.props;
+    const resultado = listingByCat.oResults;
+    if(this.props.navigation.state.params.nuevo === 'lonuevo'){
+      resultado.sort((a, b) => {
+        return a.ID > b.ID ? 1 : -1
+      });
+    }
     return (
 
 
@@ -166,6 +172,7 @@ class ListingByCatContainer extends Component {
       <Banner
           navigation={this.props.navigation}
           es={'NADA'}
+          tipo={'publicidad'}
         />
     {this.props.subcategories &&  this.props.navigation.state.params.name === 'Barrio Chino' ?
 
@@ -233,7 +240,7 @@ class ListingByCatContainer extends Component {
             admob={this.props.settings.oAdMob}
             postType={'restaurant'}
           /> : <FlatList
-        data={listingByCat.oResults}
+        data={resultado}
         renderItem={this.renderItem}
         keyExtractor={(item, index) => item.ID.toString() + index.toString()}
         numColumns={this.props.horizontal ? 1 : 2}
@@ -316,7 +323,64 @@ class ListingByCatContainer extends Component {
           marginLeft: (SCREEN_WIDTH - screenWidth) / 2,
         }}
       /> }
+      {this.props.subcategories ?
+      <Banner
+          navigation={this.props.navigation}
+          es={'NADA'}
+          tipo={'sponsor'}
+        /> : null }
+        
+     <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
+     {this.props.subcategories ?
+        <View style={styles.heading}>
+        <Heading
+          title={'Nuevos restaurantes'}
+          text={''}
+          mb={2}
+        
+        />
+        </View> : null }
+        {this.props.subcategories ?
 
+<TouchableOpacity
+    style={
+      { justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    height: 30,
+    borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
+    }
+    activeOpacity={0.7}
+   
+     onPress={() => {
+      const { navigation } = this.props;
+      navigation.push("ListingCategories", {
+        categoryId: navigation.state.params.categoryId,
+        name: navigation.state.params.name,
+        taxonomy: 'listing_cat',
+        endpointAPI: 'list/listings',
+        nuevo: 'lonuevo'
+      });
+          }}
+  >
+    
+    <Text style={{fontSize: 13,
+    fontWeight: "bold",
+    color: "#fff",}}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
+  </TouchableOpacity> : null }
+  </View>{this.props.subcategories ?
+         <ListingMarcas
+            layout={"horizontal"}
+            data={listingByCat.oResults}
+            navigation={this.props.navigation}
+            colorPrimary={this.props.settings.colorPrimary}
+            unit={this.props.settings.unit}
+            cat={listingByCat.oResults}
+            translations={translations}
+            nuevo={'lonuevo'}
+            admob={this.props.settings.oAdMob}
+            postType={'restaurant'}
+          /> : null}
       
       </ScrollView>
     );

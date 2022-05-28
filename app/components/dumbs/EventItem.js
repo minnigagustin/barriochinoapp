@@ -35,7 +35,7 @@ const EventItem = (props) => (
           },
         ]}
       >
-        <Text style={styles.mapDistanceText}>{props.mapDistance}</Text>
+        <Text style={styles.mapDistanceText}>{props.mapDistance.toFixed(2) + 'km'}</Text>
       </View>
     )}
     <View style={[{ padding: 8 }, props.bodyStyle]}>

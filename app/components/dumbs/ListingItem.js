@@ -117,7 +117,7 @@ export default class ListingItem extends PureComponent {
         overlay={0.55}
         blurRadius={0.5}
 
-       
+
       />
     );
   }
@@ -148,7 +148,7 @@ export default class ListingItem extends PureComponent {
         <View style={{left: 5}}>
         <Entypo name="star" size={15} color="#FFDC00" />
         </View>
-        
+
       </View>
     );
   };
@@ -161,9 +161,9 @@ export default class ListingItem extends PureComponent {
           styles.claim
         ]}
       >
-        
+
         <FontAwesome name="check" size={18} color="black" />
-        
+
       </View>
     );
   };
@@ -222,7 +222,7 @@ export default class ListingItem extends PureComponent {
                   },
                 ]}
               >
-                <Text style={styles.mapDistanceText}>{mapDistance}</Text>
+                <Text style={styles.mapDistanceText}>{mapDistance.toFixed(2) + 'km'}</Text>
               </View>
               )}
             <View style={styles.logoWrap}>
@@ -232,7 +232,7 @@ export default class ListingItem extends PureComponent {
                 styles={styles.logo}
                 borderRadius={15}
               />
-              
+
             </View>
           </View>
           {claimStatus && this.renderVerified()}
@@ -247,7 +247,7 @@ export default class ListingItem extends PureComponent {
               textNumberOfLines={1}
             />
             {this.renderFooter()}
-            
+
           </View>
         </View>
       </TouchableOpacity>
@@ -311,7 +311,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginLeft: 5,
     marginRight: 5
-    
+
   },
   textWrap: { marginRight: 10, marginTop: 2 },
   pd: { paddingTop: 10, paddingBottom: 10 },

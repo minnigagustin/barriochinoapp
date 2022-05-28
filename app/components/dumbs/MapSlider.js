@@ -7,10 +7,12 @@ import {
   StyleSheet,
   ViewPropTypes,
   Platform,
+  Alert
 } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import MapView from "react-native-maps";
 import _ from "lodash";
+import * as Location from 'expo-location';
 import { bottomBarHeight } from "../../wiloke-elements";
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -71,16 +73,18 @@ export default class MapSlider extends Component {
     currentIndex: null,
     isMapReady: false,
     isRefreshMapMarker: false,
+    latitude: 8.90848547213087,
+    longitude: -79.51945734303061,
   };
 
-  componentDidMount() {
-    this._fixAndroid = setTimeout(
-      () => {
-        const { data, getCurrentItem, mapZoom } = this.props;
-        const currentIndex = this._carousel && this._carousel.currentIndex;
-        const firstItem = data[currentIndex];
-        const { latitude, longitude } = firstItem.coordinate;
-        this.latitudeDelta = getLatitudeDelta(mapZoom).default();
+  async getLocationAsync (){
+    
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({latitude: location.coords.latitude});
+    this.setState({longitude: location.coords.longitude});
+    const latitude = this.state.latitude;
+        const longitude = this.state.longitude;
+        this.latitudeDelta = getLatitudeDelta(this.props.mapZoom).default();
         this.longitudeDelta = this.latitudeDelta * ASPECT_RATIO;
         const { latitudeDelta, longitudeDelta } = this;
         this._mapView.animateToRegion(
@@ -92,6 +96,15 @@ export default class MapSlider extends Component {
           },
           300
         );
+  }
+
+  componentDidMount() {
+    this.getLocationAsync();
+    this._fixAndroid = setTimeout(
+      () => {
+        const { data, getCurrentItem, mapZoom } = this.props;
+        const currentIndex = this._carousel && this._carousel.currentIndex;
+        const firstItem = data[currentIndex];
         this._setCurrentIndexTimeout = setTimeout(
           () => {
             this.setState({
@@ -184,6 +197,7 @@ export default class MapSlider extends Component {
 
   _renderCarousel = (__) => {
     const { data } = this.props;
+    console.log(data);
     return (
       <View style={styles.carouselWrap}>
         <Carousel
@@ -223,6 +237,15 @@ export default class MapSlider extends Component {
         style={styles.map}
       >
         {isMapReady && data.map(this._renderMapMarker)}
+        <MapView.Marker
+            draggable
+            coordinate={{
+              latitude: this.state.latitude,
+              longitude: this.state.longitude,
+            }}
+            title="¿Tu estas aqui?"
+            description="Actualiza el mapa"
+          />
       </MapView>
     );
   };

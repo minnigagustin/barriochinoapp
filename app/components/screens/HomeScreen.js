@@ -11,7 +11,9 @@ import {
   Dimensions,
 } from "react-native";
 import * as Linking from "expo-linking";
+import * as Location from "expo-location";
 import WebView from "react-native-webview";
+import * as Permissions from "expo-permissions";
 import { FlatList } from "react-native-gesture-handler";
 import {
   ViewWithLoading,
@@ -19,6 +21,7 @@ import {
   Admob,
   adMobModal,
   Row,
+  FontIcon,
   Col,
   Masonry,
   Loader,
@@ -81,6 +84,7 @@ class HomeScreen extends Component {
       notification: null,
       animationType: "none",
       subcategories: null,
+      aceptar: true,
       subevents: null
     };
   }
@@ -92,6 +96,23 @@ class HomeScreen extends Component {
 
   async componentDidMount() {
     const { auth, settings } = this.props;
+    const { status } = await Permissions.askAsync(Permissions.LOCATION);
+      // if (status !== "granted") {
+      //   await this.setState({
+      //     errorMessage: "Permission to access location was denied"
+      //   });
+      // }
+      if (status === "granted") {
+        const location = await Location.getCurrentPositionAsync({
+          enableHighAccuracy: true
+        });
+        console.log({ location });
+        this.setState({ aceptar: false });
+        
+      } else {
+        this.setState({ aceptar: true });
+      }
+      
     if (auth.isLoggedIn) {
       this._handleLinking();
       // await this.props.getShortProfile()
@@ -170,6 +191,14 @@ class HomeScreen extends Component {
     });
   };
 
+  cerrargps = () => {
+    console.log('eeee')
+    this.setState({
+      aceptar: false,
+    });
+    console.log(this.state.aceptar);
+  };
+
   shouldComponentUpdate(nextProps, nextState) {
     if (!_.isEqual(nextProps.homeScreen, this.props.homeScreen)) {
       return true;
@@ -206,6 +235,53 @@ class HomeScreen extends Component {
     }
     return false;
   }
+
+  aceptargps= async () => {
+    try {
+      this.setState({
+        isGetLocationLoading: true
+      });
+      const { status } = await Permissions.askAsync(Permissions.LOCATION);
+      // if (status !== "granted") {
+      //   await this.setState({
+      //     errorMessage: "Permission to access location was denied"
+      //   });
+      // }
+      if (status === "granted") {
+        const location = await Location.getCurrentPositionAsync({
+          enableHighAccuracy: true
+        });
+        this.setState({aceptar: false});
+        console.log({ location });
+      } else {
+        throw new Error("Location permission not granted");
+      }
+
+      // const location = await Location.getCurrentPositionAsync({});
+    } catch (err) {
+      console.log(err);
+      Platform === "android"
+        ? IntentLauncher.startActivityAsync(
+            IntentLauncher.ACTION_LOCATION_SOURCE_SETTINGS
+          )
+        : Alert.alert(
+            he.decode(translations.askForAllowAccessingLocationTitle),
+            he.decode(translations.askForAllowAccessingLocationDesc),
+            [
+              {
+                text: translations.cancel,
+                style: "cancel"
+              },
+              {
+                text: translations.ok,
+                onPress: () => Linking.openURL("app-settings:")
+              }
+            ],
+            { cancelable: false }
+          );
+    }
+  };
+
 
   _handleRefresh = async () => {
     try {
@@ -788,6 +864,7 @@ const result = frg[0];
       settings,
     } = this.props;
     return (
+      
       <RequestTimeoutWrapped
         isTimeout={isHomeRequestTimeout && _.isEmpty(homeScreen)}
         onPress={this._getHomeAPIRequestTimeout}
@@ -797,6 +874,45 @@ const result = frg[0];
       >
         <ViewWithLoading isLoading={homeScreen}>
           <View style={styles.contentInner}>
+        
+          {this.state.aceptar &&
+    <View style={[styles.aviso]}>
+    <View style={[styles.triaviso]} />
+    
+    <View style={[styles.globoaviso]}>
+      <FontIcon
+          name="fa fa-map-marker"
+          size={15}
+          color="#ffff"
+          style={{right: 4}}
+        />
+    <Text style={[styles.textaviso]}>Enciende tu GPS para una mejor experiencia!</Text>
+  
+    <TouchableOpacity onPress={()=>this.aceptargps()} style={{
+               backgroundColor:"#FFD200",
+               
+               alignItems:'center',
+               padding:7,
+ 
+               borderRadius:3
+
+             }}>
+             <Text style={{fontSize:12}}>Aceptar</Text>
+             </TouchableOpacity>
+             <TouchableOpacity onPress={()=>this.cerrargps() } style={[styles.xaviso]} >
+              <FontIcon
+          name="fa fa-close"
+        size={17}
+          color="#ffff"
+          
+        />
+        </TouchableOpacity>
+
+    </View>
+ 
+    </View>
+  }
+   
             <FlatList
               data={homeScreen}
               renderItem={this._renderHomeItem}
@@ -845,6 +961,57 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     alignItems: "flex-start",
     direction: "inherit",
+  },
+  aviso: {
+
+    width: SCREEN_WIDTH,
+    height: 60,
+    top:-6,
+    backgroundColor: "transparent",
+
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  globoaviso: {
+    width: SCREEN_WIDTH - 15,
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: "#000000",
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    flexDirection: "row",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 15,
+  },
+  triaviso: {
+    right: 160,
+
+     backgroundColor: 'transparent',
+     borderStyle: 'solid',
+     borderTopWidth: 0,
+     borderRightWidth: 5,
+     borderBottomWidth: 10,
+     borderLeftWidth: 5,
+     borderTopColor: 'transparent',
+     borderRightColor: 'transparent',
+     borderBottomColor: "#000000",
+     borderLeftColor: 'transparent',
+   },
+   xaviso: {
+    color: "#FFFFFF",
+    padding: 1,
+    marginLeft: 14
+
+  },
+  textaviso: {
+    color: "#FFFFFF",
+    fontSize: 11,
+    marginLeft: 4,
+    marginRight: 8
+
   },
   listing: {
     paddingBottom: 1,

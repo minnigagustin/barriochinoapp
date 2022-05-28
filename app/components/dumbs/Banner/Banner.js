@@ -74,7 +74,8 @@ export default class Banner extends PureComponent {
       },
       body:JSON.stringify({
         // we will pass our input data to server
-        id: this.props.navigation.state.params.name
+        id: this.props.navigation.state.params.name,
+        tipo: this.props.tipo
         
 
       })

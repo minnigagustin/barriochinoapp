@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Animated,
+  Platform,
   TouchableOpacity,
 } from "react-native";
 import PropTypes from "prop-types";
@@ -64,7 +65,8 @@ export default class CategorySelectItem extends PureComponent {
 
     const { scale } = this._scaleStyle();
     return (
-      <TouchableOpacity activeOpacity={1} style={styles.btn} onPress={onPress}>
+      <TouchableOpacity activeOpacity={1} style={[styles.btn, {paddingVertical: Platform.OS == 'ios' ? 20 : null,
+        paddingBottom: Platform.OS == 'ios' ? 15 : 3}]} onPress={onPress}>
         <View style={styles.image}>{this._renderImage()}</View>
        
       </TouchableOpacity>

@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { WebView } from "react-native-webview";
-import { bottomBarHeight } from "../../../wiloke-elements";
+import { bottomBarHeight, WithLoading } from "../../../wiloke-elements";
 
 const webviewCss = `
   .wil-section {
@@ -35,6 +35,7 @@ const ContentWebView = ({ navigation, webViewRef, onMessage, onLoadEnd }) => {
 
   return (
     <View style={{ flex: 1 }}>
+      { /* <ViewWithLoading isLoading={isLoading} /> */ }
       <WebView
         decelerationRate="normal"
         ref={webViewRef}

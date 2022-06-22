@@ -229,14 +229,14 @@ const ViewWithLoading = props => {
       justifyContent: 'center',}}>
       <Image
         style={{width: 300, height: 200}}
-        source={{uri: 'https://wepardo.com.ar/AnimacionPaya.gif'}} />
+        source={{uri: 'http://appspuntaltenses.com/AnimacionPaya.gif'}} />
     </View>
     ) : (
       <View style={{flex: 1, alignItems: 'center',
       justifyContent: 'center',}}>
       <Image
         style={{width: 300, height: 200}}
-        source={{uri: 'https://wepardo.com.ar/AnimacionPaya.gif'}} />
+        source={{uri: 'http://appspuntaltenses.com/AnimacionPaya.gif'}} />
     </View>
     )
   ) : (

@@ -26,13 +26,13 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "15",
+      "buildNumber": "16",
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationAlwaysUsageDescription": "This app uses the location to show listings nearby you.",
-        "NSLocationWhenInUseUsageDescription": "This app uses the location to show listings nearby you.",
-        "NSCameraUsageDescription": "This app requires to access your photo library to show image on profile",
-        "NSPhotoLibraryUsageDescription": "This app requires to access your photo library to show image on profile"
+        "NSLocationAlwaysUsageDescription": "Esta aplicación utiliza la ubicación para mostrar comercios cercanos a ti.",
+        "NSLocationWhenInUseUsageDescription": "Esta aplicación utiliza la ubicación para mostrar listados cercanos a ti.",
+        "NSCameraUsageDescription": "Esta aplicación requiere acceder a tu biblioteca de fotos para subir una imagen a tu review o a tu perfil",
+        "NSPhotoLibraryUsageDescription": "Esta aplicación requiere acceder a tu biblioteca de fotos para subir una imagen a tu review o a tu perfil"
       },
       "bundleIdentifier": "com.paya",
       "usesAppleSignIn": true,

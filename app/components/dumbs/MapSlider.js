@@ -78,7 +78,7 @@ export default class MapSlider extends Component {
   };
 
   async getLocationAsync (){
-    
+
     let location = await Location.getCurrentPositionAsync({});
     this.setState({latitude: location.coords.latitude});
     this.setState({longitude: location.coords.longitude});

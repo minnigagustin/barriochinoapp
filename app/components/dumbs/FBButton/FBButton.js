@@ -40,7 +40,7 @@ export default class FBButton extends PureComponent {
     onError: () => {},
     width: 250,
     height: 40,
-    appID: "",
+    appID: 356647296289709,
   };
 
   componentDidMount() {}

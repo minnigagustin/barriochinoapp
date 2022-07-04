@@ -3,7 +3,7 @@ import axios from "axios";
 import _ from "lodash";
 import { axiosHandleError } from "../wiloke-elements";
 
-const POSTS_PER_PAGE = 200;
+const POSTS_PER_PAGE = 100;
 
 export const getListings = (categoryId, locationId, postType, nearBy) => (
   dispatch

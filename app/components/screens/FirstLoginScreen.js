@@ -286,7 +286,7 @@ class FirstLoginScreen extends PureComponent {
             />
           ) */}
         </View>
-        {/* !oFacebook && oFacebook.isEnableFacebookLogin && (
+        {!oFacebook && oFacebook.isEnableFacebookLogin && (
           <FBButton
             radius="round"
             isLoading={false}
@@ -295,7 +295,7 @@ class FirstLoginScreen extends PureComponent {
             onError={this._handleLoginFbError}
             style={{ borderRadius: 6, height: 50 }}
           />
-        ) */}
+        )}
 
         {/* Platform.OS === "ios" &&
           majorVersionIOS > 12 &&

@@ -213,18 +213,6 @@ export default class ListingItem extends PureComponent {
           <View style={styles.wrap}>
           {this.renderAbierto()}
             {this.renderImage()}
-            {!!mapDistance && (
-              <View
-                style={[
-                  styles.mapDistance,
-                  {
-                    backgroundColor: Consts.colorSecondary,
-                  },
-                ]}
-              >
-                <Text style={styles.mapDistanceText}>{mapDistance.toFixed(2) + 'km'}</Text>
-              </View>
-              )}
             <View style={styles.logoWrap}>
               <ImageCover
                 src={logo}

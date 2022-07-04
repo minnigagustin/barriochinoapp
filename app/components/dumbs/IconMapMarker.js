@@ -59,7 +59,7 @@ export default class IconMapMarker extends PureComponent {
         ]}
       >
         <View style={[styles.image, imageContainerStyle]}>
-          {imageUri && <ImageCover src={imageUri?imageUri:null} width="100%" height="100%" />}
+          <ImageCover src={imageUri?imageUri:null} width="100%" height="100%" />
         </View>
         <Svg width="36" height={`${36 / 0.731707317}`} viewBox="0 0 50.6 69.1">
           <Path

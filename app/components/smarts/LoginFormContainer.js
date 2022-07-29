@@ -435,7 +435,7 @@ class LoginFormContainer extends Component {
             />
           </View>
             ) */}
-        {/* oFacebook.isEnableFacebookLogin && (
+        { oFacebook.isEnableFacebookLogin && (
           <View style={{ marginTop: 10 }}>
             <FBButton
               radius="round"
@@ -445,7 +445,7 @@ class LoginFormContainer extends Component {
               onError={this._handleLoginFbError}
             />
           </View>
-        ) */}
+        ) }
         {/* Platform.OS === "ios" &&
           majorVersionIOS > 12 &&
           iOsSettings.usesAppleSignIn && (

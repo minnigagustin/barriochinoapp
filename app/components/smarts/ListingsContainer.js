@@ -2,18 +2,16 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import {
   View,
-  Button,
   Platform,
   FlatList,
   StyleSheet,
   Dimensions,
   TouchableHighlight,
   Animated,
+  TouchableOpacity,
   Easing,
   Text,
   Alert,
-  Image,
-  TouchableOpacity
 } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import _ from "lodash";
@@ -74,9 +72,9 @@ class ListingsContainer extends Component {
     refreshing: false,
     startLoadmore: false,
     postType: null,
-    isMapVisible: true,
+    isMapVisible: false,
     aceptar: true,
-    isMapVisibleAnimated: new Animated.Value(100),
+    isMapVisibleAnimated: new Animated.Value(0),
     itemCurrentSlideID: null,
   };
 
@@ -102,13 +100,8 @@ class ListingsContainer extends Component {
 
   _getListing = async () => {
     try {
-      const {
-        locations,
-        getListings,
-        navigation,
-        nearByFocus,
-        settings,
-      } = this.props;
+      const { locations, getListings, navigation, nearByFocus, settings } =
+        this.props;
       const { coords } = locations.location;
       const nearBy = {
         lat: coords.latitude,
@@ -147,8 +140,11 @@ class ListingsContainer extends Component {
      this.setState({ aceptar: false });
     }
       });
-  }
-
+    }
+    aceptargps() {
+      this.setState({aceptar: false});
+      AsyncStorage.setItem("gps",JSON.stringify(this.state.aceptar));
+    }
 
   componentDidUpdate(prevProps, prevState) {
     const { navigation } = this.props;
@@ -180,12 +176,8 @@ class ListingsContainer extends Component {
   };
 
   _handleEndReached = (next, totalPage) => async () => {
-    const {
-      locations,
-      getListingsLoadmore,
-      nearByFocus,
-      settings,
-    } = this.props;
+    const { locations, getListingsLoadmore, nearByFocus, settings } =
+      this.props;
     const { coords } = locations.location;
     const nearby = {
       lat: coords.latitude,
@@ -195,9 +187,17 @@ class ListingsContainer extends Component {
     };
     const { postType } = this.state;
     const { startLoadmore } = this.state;
+
     const { categoryId, locationId } = this._getId(postType);
     if (startLoadmore && next !== false && this.prevPage <= totalPage) {
       this.prevPage++;
+      // console.log(
+      //   this.prevPage,
+      //   categoryId,
+      //   locationId,
+      //   postType,
+      //   nearByFocus ? nearby : {}
+      // );
       await getListingsLoadmore(
         this.prevPage,
         categoryId,
@@ -208,60 +208,59 @@ class ListingsContainer extends Component {
     }
   };
 
-  renderItem = (style, isFooterAutoDisable = true) => ({ item }) => {
-    const {
-      navigation,
-      settings,
-      locations,
-      translations,
-      nearByFocus,
-    } = this.props;
-    const { unit } = settings;
-    const { latitude, longitude } = locations.location.coords;
-    const address = item.oAddress || { lat: "", lng: "" };
-    const { lat, lng } = address;
-    const distance = getDistance(latitude, longitude, lat, lng, unit);
-    const hourMode = _.get(item, `newBusinessHours.mode`, null);
-    const reviewMode = _.get(item, `oReview.mode`, 10);
-    const addressLocation = _.get(item, `oAddress.address`, "");
-    const isOpen =
-      hourMode === "open_for_selected_hours"
-        ? getBusinessStatus(
-            item.newBusinessHours.operating_times,
-            item.newBusinessHours.timezone
-          )
-        : hourMode;
-    return (
-      <ListingItem
-        image={item.oFeaturedImg.large}
-        title={he.decode(item.postTitle)}
-        translations={translations}
-        claimStatus={item.claimStatus === "claimed"}
-        tagline={item.tagLine ? he.decode(item.tagLine) : null}
-        logo={!!item.logo ? item.logo : item.oFeaturedImg.thumbnail}
-        location={he.decode(addressLocation)}
-        reviewMode={reviewMode}
-        reviewAverage={item.oReview.averageReview}
-        businessStatus={isOpen}
-        colorPrimary={settings.colorPrimary}
-        onPress={() =>
-          navigation.navigate("ListingDetailScreen", {
-            id: item.ID,
-            name: he.decode(item.postTitle),
-            tagline: !!item.tagLine ? he.decode(item.tagLine) : null,
-            link: item.postLink,
-            author: item.oAuthor,
-            image: item.oFeaturedImg.large,
-            logo: item.logo !== "" ? item.logo : item.oFeaturedImg.thumbnail,
-          })
-        }
-        layout={this.props.horizontal ? "horizontal" : "vertical"}
-        isFooterAutoDisable={isFooterAutoDisable}
-        mapDistance={distance}
-        {...style}
-      />
-    );
-  };
+  renderItem =
+    (style, isFooterAutoDisable = true) =>
+    ({ item }) => {
+      const { navigation, settings, locations, translations, nearByFocus } =
+        this.props;
+      const { unit } = settings;
+      const { latitude, longitude } = locations.location.coords;
+      const address = item.oAddress || { lat: "", lng: "" };
+      const { lat, lng } = address;
+      const distance = getDistance(latitude, longitude, lat, lng, unit);
+      const hourMode = _.get(item, `newBusinessHours.mode`, null);
+      const reviewMode = _.get(item, `oReview.mode`, 10);
+      const addressLocation = _.get(item, `oAddress.address`, "");
+      const isOpen =
+        hourMode === "open_for_selected_hours"
+          ? getBusinessStatus(
+              item.newBusinessHours.operating_times,
+              item.newBusinessHours.timezone
+            )
+          : hourMode;
+      return (
+        <ListingItem
+          image={item.oFeaturedImg.large}
+          title={he.decode(item.postTitle)}
+          listedOn={item.listedOn}
+          translations={translations}
+          claimStatus={item.claimStatus === "claimed"}
+          tagline={item.tagLine ? he.decode(item.tagLine) : null}
+          logo={!!item.logo ? item.logo : item.oFeaturedImg.thumbnail}
+          location={he.decode(addressLocation)}
+          reviewMode={reviewMode}
+          reviewAverage={item.oReview.averageReview}
+          businessStatus={isOpen}
+          colorPrimary={settings.colorPrimary}
+          onPress={() =>
+            navigation.navigate("ListingDetailScreen", {
+              id: item.ID,
+              listedOn: item?.listedOn,
+              name: he.decode(item.postTitle),
+              tagline: !!item.tagLine ? he.decode(item.tagLine) : null,
+              link: item.postLink,
+              author: item.oAuthor,
+              image: item.oFeaturedImg.large,
+              logo: item.logo !== "" ? item.logo : item.oFeaturedImg.thumbnail,
+            })
+          }
+          layout={this.props.horizontal ? "horizontal" : "vertical"}
+          isFooterAutoDisable={isFooterAutoDisable}
+          mapDistance={distance}
+          {...style}
+        />
+      );
+    };
 
   _getWithLoadingProps = (loading) => ({
     isLoading: loading,
@@ -275,12 +274,12 @@ class ListingsContainer extends Component {
   });
 
   renderContentSuccess(listings) {
+    console.log(listings, "listings");
     const { startLoadmore } = this.state;
     const ordenado = listings.oResults.sort((a, b) => {
       return getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, a.oAddress.lat, a.oAddress.lng, this.props.settings.unit) > getDistance(this.props.locations.location.coords.latitude, this.props.locations.location.coords.longitude, b.oAddress.lat, b.oAddress.lng, this.props.settings.unit)
     });
     return (
-
       <FlatList
         data={ordenado}
         renderItem={this.renderItem({})}
@@ -358,12 +357,9 @@ class ListingsContainer extends Component {
       await wait(!isMapVisible ? 300 : 0);
       await this.setState({
         isMapVisible: !isMapVisible,
-        aceptar: false
       });
     });
   };
-
-
 
   _renderMapMarker = ({ item }) => {
     const { itemCurrentSlideID } = this.state;
@@ -425,11 +421,14 @@ class ListingsContainer extends Component {
                 },
                 false
               )}
-              onEndReached={this._handleEndReached(listings[postType].next)}
+              onEndReached={this._handleEndReached(
+                listings[postType].next,
+                listings[postType].totalPage
+              )}
               mapMarkerKeyExtractor={(item) => item.ID.toString()}
               renderMapMarker={this._renderMapMarker}
               getCurrentItem={this._handleGetCurrentItem}
-              mapZoom={39.90}
+              mapZoom={settings.defaultMapZoom}
             />
           ) : (
             this.renderContentError(listings[postType])
@@ -469,13 +468,6 @@ class ListingsContainer extends Component {
     );
   };
 
-  aceptargps() {
-    this.setState({
-      aceptar: false
-    });
-    AsyncStorage.setItem("gps",JSON.stringify(this.state.aceptar));
-  }
-
   _renderGrid = (condition) => {
     const {
       listings,
@@ -486,9 +478,7 @@ class ListingsContainer extends Component {
     } = this.props;
     const { postType } = this.state;
     return (
-
       <View style={{ flex: 1, width: loading ? screenWidth : SCREEN_WIDTH }}>
-
         <ViewWithLoading {...this._getWithLoadingProps(loading)}>
           <RequestTimeoutWrapped
             isTimeout={isListingRequestTimeout && _.isEmpty(listings[postType])}
@@ -509,7 +499,7 @@ class ListingsContainer extends Component {
 
   render() {
     const { listings } = this.props;
-    const { postType, isMapVisible, aceptar } = this.state;
+    const { postType, isMapVisible } = this.state;
     const condition = this._getListingSuccess(listings, postType);
     return (
       <View style={[styles.container]}>
@@ -587,6 +577,25 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 15,
   },
+  requestTimeout: {
+    flex: 1,
+    flexDirection: "row",
+  },
+  mapSliderWrap: {
+    backgroundColor: colorGray1,
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 9,
+    width: "100%",
+    height: "100%",
+  },
+  iconOpenMapView: {
+    width: 12,
+    height: 12,
+    top: 12,
+    left: 12,
+  },
   aviso: {
 
     width: SCREEN_WIDTH,
@@ -636,30 +645,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     marginLeft: 4,
     marginRight: 8
-
-  },
-  requestTimeout: {
-    flex: 1,
-    flexDirection: "row",
-  },
-  mapSliderWrap: {
-    backgroundColor: colorGray1,
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: 9,
-    width: "100%",
-    height: "100%",
-  },
-  iconOpenMapView: {
-    width: 12,
-    height: 12,
-    top: 12,
-    left: 12,
-  },
-  logoraro: {
-    width: 36,
-    height: 36,
 
   },
 });

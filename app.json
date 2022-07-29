@@ -9,7 +9,7 @@
       "ios",
       "android"
     ],
-    "version": "2.1.2",
+    "version": "2.1.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "notification": {
@@ -17,6 +17,9 @@
       "iosDisplayInForeground": true,
       "androidMode": "default"
     },
+    "facebookAppId": "356647296289709",
+"facebookDisplayName": "PaYa",
+"facebookScheme": "fb356647296289709",
     "updates": {
       "fallbackToCacheTimeout": 60000,
       "checkAutomatically": "ON_LOAD",
@@ -26,7 +29,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "18",
+      "buildNumber": "20",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "Esta aplicación utiliza la ubicación para mostrar comercios cercanos a ti.",

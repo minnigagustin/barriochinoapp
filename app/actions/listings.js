@@ -2,12 +2,11 @@ import * as types from "../constants/actionTypes";
 import axios from "axios";
 import _ from "lodash";
 import { axiosHandleError } from "../wiloke-elements";
+import Obteneridioma from "../utils/traducir"
+const POSTS_PER_PAGE = 350;
 
-const POSTS_PER_PAGE = 150;
-
-export const getListings = (categoryId, locationId, postType, nearBy) => (
-  dispatch
-) => {
+export const getListings = (categoryId, locationId, postType, nearBy) =>
+  async dispatch => {
   dispatch({
     type: types.LOADING,
     loading: true,
@@ -20,6 +19,7 @@ export const getListings = (categoryId, locationId, postType, nearBy) => (
     {
       page: 1,
       postsPerPage: POSTS_PER_PAGE,
+      lang: await Obteneridioma(),
       postType: postType === "all" ? "" : postType,
       listing_cat: categoryId !== "wilokeListingCategory" ? categoryId : null,
       listing_location:

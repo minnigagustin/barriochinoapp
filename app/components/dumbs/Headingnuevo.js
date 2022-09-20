@@ -4,10 +4,23 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Consts from "../../constants/styleConstants";
 import stylesBase from "../../stylesBase";
 import _ from "lodash";
+import Obteneridioma from "../../utils/traducir"
 import { RTL } from "../../wiloke-elements";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import he from "he";
 
 export default class Headingnuevo extends PureComponent {
+  state = {
+    idioma: ""
+  };
+  componentDidMount() {
+    AsyncStorage.getItem('idioma').then((value) => {
+      if(value){
+     this.setState({ idioma: value });
+    }
+      });
+  }
   render() {
     const rtl = RTL();
 
@@ -23,9 +36,10 @@ export default class Headingnuevo extends PureComponent {
       textAlign: rtl ? "left" : "auto",
     };
     console.log(this.props);
+    const verlen = this.state.idioma === 'zh-hans' ? '见' : 'Ver';
     return (
       <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
-     
+
         <Text
           style={[stylesBase.h6, titleStyles]}
           numberOfLines={this.props.titleNumberOfLines}
@@ -42,7 +56,7 @@ export default class Headingnuevo extends PureComponent {
          borderRadius: 3, backgroundColor: 'black', width: '30%'}
          }
          activeOpacity={0.7}
-        
+
           onPress={() => {
            const { navigation } = this.props;
            console.log(this.props.text);
@@ -55,13 +69,13 @@ export default class Headingnuevo extends PureComponent {
            });
                }}
        >
-         
+
          <Text style={{fontSize: 13,
          fontWeight: "bold",
-         color: "#fff",}}>Ver +</Text>
+         color: "#fff",}}>{verlen} +</Text>
        </TouchableOpacity>
         )}
-    
+
       </View>
     );
   }

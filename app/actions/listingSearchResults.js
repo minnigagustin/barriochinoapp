@@ -2,10 +2,11 @@ import * as types from "../constants/actionTypes";
 import axios from "axios";
 import _ from "lodash";
 import { axiosHandleError } from "../wiloke-elements";
+import Obteneridioma from "../utils/traducir"
 
 const POSTS_PER_PAGE = 12;
 
-export const getListingSearchResults = (results) => (dispatch) => {
+export const getListingSearchResults = (results) => async dispatch => {
   dispatch({
     type: types.LOADING,
     loading: true,
@@ -18,6 +19,7 @@ export const getListingSearchResults = (results) => (dispatch) => {
     {
       postsPerPage: POSTS_PER_PAGE,
       page: 1,
+      lang: await Obteneridioma(),
       ...results,
     },
     _.identity

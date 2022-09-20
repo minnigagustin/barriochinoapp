@@ -4,11 +4,13 @@ import {
 } from "../constants/actionTypes";
 import axios from "axios";
 import { axiosHandleError } from "../wiloke-elements";
+import Obteneridioma from "../utils/traducir"
 
-export const getListingFilters = (objPostType, postType) => (dispatch) => {
+export const getListingFilters = (objPostType, postType) => async dispatch => {
   return axios
     .get("search-fields/listing", {
       params: {
+        lang: await Obteneridioma(),
         postType,
       },
     })
@@ -36,7 +38,7 @@ export const getListingFilters = (objPostType, postType) => (dispatch) => {
 
 export const putNewTagListingFilters = (catId) => async (dispatch) => {
   try {
-    const res = await axios.get(`get-tags/${catId}`);
+    const res = await axios.get(`get-tags/${catId}?lang=${await Obteneridioma()}`);
     const { data } = res;
     if (data.status === "success") {
     }

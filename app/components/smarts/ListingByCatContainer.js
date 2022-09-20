@@ -174,7 +174,7 @@ class ListingByCatContainer extends Component {
           es={'NADA'}
           tipo={'publicidad'}
         />
-    {this.props.subcategories &&  this.props.navigation.state.params.name === 'Barrio Chino' ?
+    {this.props.subcategories &&  this.props.navigation.state.params.name === 'Barrio Chino' || this.props.subcategories &&  this.props.navigation.state.params.name ===  '中国城' ?
 
        <SubCategorias
           cat={this.props.subcategories}
@@ -192,13 +192,13 @@ class ListingByCatContainer extends Component {
           title={'Opciones vegetarianas'}
           text={''}
           mb={2}
-        
+
         /> : <Heading
           title={'Lo mas popular'}
           text={''}
           mb={2}
-        
-        />} 
+
+        />}
         </View>
         {this.props.subcategories ?
 
@@ -211,7 +211,7 @@ class ListingByCatContainer extends Component {
     borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
     }
     activeOpacity={0.7}
-   
+
      onPress={() => {
       const { navigation } = this.props;
       navigation.push("ListingCategories", {
@@ -222,7 +222,7 @@ class ListingByCatContainer extends Component {
       });
           }}
   >
-    
+
     <Text style={{fontSize: 13,
     fontWeight: "bold",
     color: "#fff",}}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
@@ -287,6 +287,8 @@ class ListingByCatContainer extends Component {
         keyExtractor={(item, index) => item.ID.toString() + index.toString()}
         numColumns={this.props.horizontal ? 1 : 2}
         horizontal={this.props.horizontal}
+        initialNumToRender={5}
+    maxToRenderPerBatch={10}
         showsHorizontalScrollIndicator={false}
         onEndReached={() => this._handleEndReached(listingByCat.next, listingByCat.totalPage)}
         ListFooterComponent={() =>
@@ -329,7 +331,7 @@ class ListingByCatContainer extends Component {
           es={'NADA'}
           tipo={'sponsor'}
         /> : null }
-        
+
      <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '98%'}}>
      {this.props.subcategories ?
         <View style={styles.heading}>
@@ -337,7 +339,7 @@ class ListingByCatContainer extends Component {
           title={'Nuevos restaurantes'}
           text={''}
           mb={2}
-        
+
         />
         </View> : null }
         {this.props.subcategories ?
@@ -351,7 +353,7 @@ class ListingByCatContainer extends Component {
     borderRadius: 3, marginTop: 10, backgroundColor: 'black', width: '30%'}
     }
     activeOpacity={0.7}
-   
+
      onPress={() => {
       const { navigation } = this.props;
       navigation.push("ListingCategories", {
@@ -359,11 +361,11 @@ class ListingByCatContainer extends Component {
         name: navigation.state.params.name,
         taxonomy: 'listing_cat',
         endpointAPI: 'list/listings',
-        nuevo: 'lonuevo'
+        nuevo: 'nover'
       });
           }}
   >
-    
+
     <Text style={{fontSize: 13,
     fontWeight: "bold",
     color: "#fff",}}>{!this.state.vermas ? 'Ver +' : 'Ver -'}</Text>
@@ -381,7 +383,7 @@ class ListingByCatContainer extends Component {
             admob={this.props.settings.oAdMob}
             postType={'restaurant'}
           /> : null}
-      
+
       </ScrollView>
     );
   }

@@ -2,11 +2,13 @@ import * as types from "../constants/actionTypes";
 import axios from "axios";
 import he from "he";
 import { zeroPad, axiosHandleError } from "../wiloke-elements";
+import Obteneridioma from "../utils/traducir"
 
-export const getCategoryList = (postType, categoryAllName) => (dispatch) => {
+export const getCategoryList = (postType, categoryAllName) => async dispatch => {
   return axios
     .get("taxonomies/listing-categories", {
       params: {
+        lang: await Obteneridioma(),
         postType,
       },
     })

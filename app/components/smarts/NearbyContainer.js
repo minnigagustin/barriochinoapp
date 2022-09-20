@@ -88,9 +88,9 @@ class NearbyContainer extends PureComponent {
           );
     }
   };
-  /* componentDidMount(){
+  componentDidMount(){
     this._getLocationAsync();
-  }; */
+  }; 
 
   componentDidUpdate(prevProps, prevState) {
     const { postType } = this.props;

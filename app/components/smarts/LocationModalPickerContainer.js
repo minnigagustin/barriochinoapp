@@ -11,6 +11,8 @@ import {
   changeCategoryList,
 } from "../../actions";
 import { ModalPicker } from "../../wiloke-elements";
+import Obteneridioma from "../../utils/traducir"
+
 import { isEmpty } from "lodash";
 
 const RADIUS = 10;
@@ -22,7 +24,7 @@ class LocationModalPickerContainer extends Component {
     categorySelectedId: "wilokeListingCategory",
     locationSelectedId: "wilokeListingLocation",
   };
-  _getData = () => {
+ async _getData() {
     const {
       postType,
       translations,
@@ -31,8 +33,8 @@ class LocationModalPickerContainer extends Component {
       locationList,
       categoryList,
     } = this.props;
-    getLocationList(postType, "Todas las zonas");
-    getCategoryList(postType, "Todas las categorias");
+    getLocationList(postType, await Obteneridioma() !== 'zh-hans' ? "Todas las zonas" : "所有地区");
+    getCategoryList(postType, await Obteneridioma() !== 'zh-hans' ? "Todas las categorias" : "所有类别");
   };
   componentDidMount() {
     this._getData();

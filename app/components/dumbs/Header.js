@@ -13,6 +13,9 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import * as Updates from 'expo-updates';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CountryFlag from "react-native-country-flag";
 import * as Consts from "../../constants/styleConstants";
 import stylesBase from "../../stylesBase";
 import { connect } from "react-redux";
@@ -34,6 +37,10 @@ class Header extends Component {
     hsblogSearch: PropTypes.bool,
   };
 
+  state = {
+    idioma: '',
+  };
+
   static defaultProps = {
     backgroundColor: Consts.colorPrimary,
   };
@@ -42,6 +49,11 @@ class Header extends Component {
     const { shortProfile, auth, getMessageChatNewCount } = this.props;
     const myID = shortProfile.userID;
     auth.isLoggedIn && getMessageChatNewCount(myID);
+    AsyncStorage.getItem('idioma').then((value) => {
+      if(value){
+     this.setState({ idioma: value });
+    }
+      });
   }
 
   _getCountNotifications = (_) => {
@@ -64,6 +76,12 @@ class Header extends Component {
     navigation.navigate("ProfileScreen", {
       name: 'Perfil',
     });
+  };
+
+  _seleccionaridioma = async () => {
+    const nuevoidioma = this.state.idioma === 'zh-hans' ? 'es' : 'zh-hans';
+    await AsyncStorage.setItem('idioma', nuevoidioma)
+    Updates.reloadAsync(300)
   };
 
   _handleHeaderLeftPress = () => {
@@ -101,7 +119,9 @@ class Header extends Component {
             source={require("../screens/Logo.png")}
          resizeMode="cover"  />
       </View>
-        
+      <TouchableOpacity activeOpacity={0.4} onPress={this._seleccionaridioma}>
+      <CountryFlag isoCode={this.state.idioma === 'zh-hans' ? 'ES' : 'CN'} size={25} style={{borderRadius: 10}} />
+        </TouchableOpacity>
 
           <TouchableOpacity
             activeOpacity={0.4}
@@ -116,7 +136,7 @@ class Header extends Component {
               style={[
                 styles.formItem,
                 {
-                  width: SCREEN_WIDTH - (isLoggedIn ? 200 : 110),
+                  width: SCREEN_WIDTH - (isLoggedIn ? 290 : 160),
                 },
               ]}
             >
@@ -161,7 +181,7 @@ class Header extends Component {
               )}
 
 
-            </View> 
+            </View>
           )}
 
           {isLoggedIn && (
@@ -191,11 +211,11 @@ class Header extends Component {
                 </View>
               )}
 
-                
-            </View> 
+
+            </View>
           )}
           {/* {console.log(123, messageNewCount)} */}
-          
+
         </View>
       </View>
     );

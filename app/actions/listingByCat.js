@@ -3,14 +3,16 @@ import {
   GET_LISTING_BY_CAT,
   GET_LISTING_BY_CAT_LOADMORE,
 } from "../constants/actionTypes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import { axiosHandleError } from "../wiloke-elements";
+import Obteneridioma from "../utils/traducir"
 
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 10;
 
-export const getListingByCat = (categoryId, taxonomy, endpointAPI) => (
-  dispatch
-) => {
+
+export const getListingByCat = (categoryId, taxonomy, endpointAPI) =>
+  async dispatch => {
   dispatch({
     type: LOADING,
     loading: true,
@@ -18,8 +20,9 @@ export const getListingByCat = (categoryId, taxonomy, endpointAPI) => (
   axios
     .get(endpointAPI, {
       params: {
+        lang: await Obteneridioma(),
         page: 1,
-        postsPerPage: POSTS_PER_PAGE,
+        postsPerPage: 10,
         [taxonomy]: categoryId,
         isGetListingByCat: 'yes',
         taxonomy
@@ -48,10 +51,11 @@ export const getListingByCatLoadmore = (
   categoryId,
   taxonomy,
   endpointAPI
-) => (dispatch) => {
+) => async dispatch => {
   return axios
     .get(endpointAPI, {
       params: {
+        lang: await Obteneridioma(),
         page: next,
         postsPerPage: POSTS_PER_PAGE,
         [taxonomy]: categoryId,

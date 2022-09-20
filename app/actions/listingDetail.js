@@ -1,15 +1,19 @@
 import * as types from "../constants/actionTypes";
 import axios from "axios";
 import { filterMax, axiosHandleError } from "../wiloke-elements";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from "react-native";
+import Obteneridioma from "../utils/traducir"
 
 /**
  * GET LISTING DETAIL
  * @param {*} id listing
  */
-export const getListingDetail = (id) => (dispatch) => {
-  return axios
-    .get(`listings/${id}`)
+
+export const getListingDetail = (id) => async dispatch => {
+
+    axios
+    .get(`listings/${id}?lang=${await Obteneridioma()}` )
     .then((res) => {
       const { oAdmob } = res.data;
       const {
@@ -64,9 +68,7 @@ export const loadedListingDetail = (id = null) => (dispatch) => {
  * @param {*} id listing
  * @param {*} key = content
  */
-export const getListingDescription = (id, item, max, isLoading = false) => (
-  dispatch
-) => {
+export const getListingDescription = (id, item, max, isLoading = false) => async dispatch => {
   dispatch({
     type: types.LOADING_LISTING_DETAIL,
     loading: isLoading,
@@ -78,6 +80,7 @@ export const getListingDescription = (id, item, max, isLoading = false) => (
   return axios
     .get(`listings/${id}/${item.key}`, {
       params: {
+        lang: await Obteneridioma(),
         ...item,
       },
     })
@@ -119,7 +122,7 @@ export const getListingDescription = (id, item, max, isLoading = false) => (
  * @param {*} key = tags
  * @param {*} max (maximumItemsOnHome)
  */
-export const getListingListFeature = (id, item, max) => (dispatch) => {
+export const getListingListFeature = (id, item, max) => async dispatch => {
   dispatch({
     type: types.LISTING_DETAIL_LIST_REQUEST_TIMEOUT,
     isTimeout: false,
@@ -128,6 +131,7 @@ export const getListingListFeature = (id, item, max) => (dispatch) => {
     .get(`listings/${id}/${item.key}`, {
       params: {
         ...item,
+        lang: await Obteneridioma(),
         maximumItemsOnHome: max !== "" ? max : null,
       },
     })
@@ -163,7 +167,7 @@ export const getListingListFeature = (id, item, max) => (dispatch) => {
  * @param {*} key = s
  * @param {*} max (maximumItemsOnHome)
  */
-export const getListingPhotos = (id, item, max) => (dispatch) => {
+export const getListingPhotos = (id, item, max) => async dispatch => {
   dispatch({
     type: types.LISTING_DETAIL_PHOTOS_REQUEST_TIMEOUT,
     isTimeout: false,
@@ -172,6 +176,7 @@ export const getListingPhotos = (id, item, max) => (dispatch) => {
     .get(`listings/${id}/${item.key}`, {
       params: {
         ...item,
+        lang: await Obteneridioma(),
         maximumItemsOnHome: max !== "" ? max : null,
       },
     })
@@ -263,7 +268,7 @@ export const getListingVideos = (id, item, max) => (dispatch) => {
  * @param {string} key reviews
  * @param {number} max (maximumItemsOnHome)
  */
-export const getListingReviews = (id, item, max) => (dispatch) => {
+export const getListingReviews = (id, item, max) => async dispatch => {
   dispatch({
     type: types.LISTING_DETAIL_REVIEWS_REQUEST_TIMEOUT,
     isTimeout: false,
@@ -272,6 +277,7 @@ export const getListingReviews = (id, item, max) => (dispatch) => {
     .get(`listings/${id}/${item.key}`, {
       params: {
         ...item,
+        lang: await Obteneridioma(),
         maximumItemsOnHome: max !== "" ? max : null,
       },
     })
@@ -436,13 +442,13 @@ export const changeListingDetailNavigation = (key) => (dispatch) => {
   });
 };
 
-export const getListingSidebar = (listingId) => (dispatch) => {
+export const getListingSidebar = (listingId) => async dispatch => {
   dispatch({
     type: types.LISTING_DETAIL_SIDEBAR_REQUEST_TIMEOUT,
     isTimeout: false,
   });
   return axios
-    .get(`listing/sidebar/${listingId}`)
+    .get(`listing/sidebar/${listingId}?lang=${await Obteneridioma()}`)
     .then((res) => {
       const payload =
         res.data.status === "success" ? res.data.oResults : "__empty__";
@@ -530,11 +536,12 @@ export const getListingCustomSection = (id, item) => async (dispatch) => {
   }
 };
 
-export const getListingTaxonomy = (id, item) => async (dispatch) => {
+export const getListingTaxonomy = (id, item) => async dispatch => {
   try {
     const endpoint = `listings/${id}/${item.key}`;
     const { data } = await axios.get(endpoint, {
       params: {
+        lang: await Obteneridioma(),
         ...item,
       },
     });

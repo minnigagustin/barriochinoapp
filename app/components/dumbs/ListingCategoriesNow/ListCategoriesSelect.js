@@ -50,7 +50,8 @@ export default class ListCategoriesSelect extends PureComponent {
 
   _handleSelect = (item) => () => {
     const { navigation } = this.props;
-    if(item.oCount.number === 1){
+    console.log(item.oTerm.slug, 'pagina');
+    if(item.oCount.number === 1 && !item.oTerm.slug.startsWith("web")){
     navigation.navigate('ListingDetailScreen', {
       id: item.oTerm.slug,
       name: he.decode(item.oTerm.name),
@@ -59,7 +60,12 @@ export default class ListCategoriesSelect extends PureComponent {
       logo: item.oIcon.url
     });
 
-  } else {
+  } else if(item.oTerm.slug.startsWith("web")) {
+    navigation.navigate("PageScreen2", {
+      uri: item.oTerm.description,
+    titleitem: item.oTerm.name });
+  }
+   else {
     const { subcategories, subevents } = this.props;
     navigation.navigate("ListingCategories", {
       categoryId: item.oTerm.term_id,

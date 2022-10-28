@@ -11,7 +11,7 @@ import useWebViewMessage from "./useWebViewMessage";
 
 const PageScreen2 = ({ navigation, settings }) => {
   const { params } = navigation.state;
-  const { uri } = params;
+  const { uri, titleitem } = params;
   const { webViewRef, onLoadEnd } = useWebViewLoadEnd(navigation);
   const { title, onMessage } = useWebViewMessage(navigation);
 
@@ -19,7 +19,7 @@ const PageScreen2 = ({ navigation, settings }) => {
     <Layout
       navigation={navigation}
       headerType="headerHasBack"
-      title="Pide tu Delivery PaYa!"
+      title={titleitem || "Pide tu Delivery PaYa!"}
       goBack={() => navigation.goBack()}
       renderRight={() => (
         <TouchableOpacity

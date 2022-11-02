@@ -45,7 +45,7 @@ export default class CategorySelectItem extends PureComponent {
           preview={item.oIcon.url}
           width="100%"
           percentRatio="100%"
-          containerStyle={{ borderRadius: 100 }}
+          containerStyle={{ borderRadius: item.oTerm.slug.endsWith("adiosbolita") ? 0 : 100 }}
         />
       );
     }
@@ -67,7 +67,7 @@ export default class CategorySelectItem extends PureComponent {
     return (
       <TouchableOpacity activeOpacity={1} style={[styles.btn, {paddingVertical: Platform.OS == 'ios' ? 20 : null,
         paddingBottom: Platform.OS == 'ios' ? 15 : 3}]} onPress={onPress}>
-        <View style={styles.image}>{this._renderImage()}</View>
+        <View style={[styles.image, {borderColor: item.oTerm.slug.endsWith("adiosbolita") ? 'transparent' : '#FFDC00',shadowColor: item.oTerm.slug.endsWith("adiosbolita") ? 'transparent' : 'black',borderRadius: item.oTerm.slug.endsWith("adiosbolita") ? 0 : 100}]}>{this._renderImage()}</View>
        
       </TouchableOpacity>
     );
